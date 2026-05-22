@@ -98,7 +98,7 @@ export async function POST(request: Request) {
       const requestOrigin = request.headers.get("origin") || "http://localhost:3000";
       const requestReferer = request.headers.get("referer") || "http://localhost:3000/#contact";
 
-      await fetch("https://formsubmit.co/ajax/stevebenoh@gmail.com", {
+      const emailResponse = await fetch("https://formsubmit.co/ajax/stevebenoh@gmail.com", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -115,6 +115,20 @@ export async function POST(request: Request) {
           _subject: `New Portfolio Message: ${subject || "Connection Request"}`,
         }),
       });
+
+      const responseData = await emailResponse.json().catch(() => ({}));
+      
+      console.log("[FormSubmit Forwarding Status]:", {
+        status: emailResponse.status,
+        ok: emailResponse.ok,
+        data: responseData
+      });
+
+      if (!emailResponse.ok || responseData.success === "false") {
+        console.warn(
+          `[FormSubmit Notification] Forwarding failed. Status: ${emailResponse.status}. Message: ${responseData.message || "Unknown error"}`
+        );
+      }
     } catch (forwardError) {
       console.error("Failed to forward to Formsubmit:", forwardError);
     }
