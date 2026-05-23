@@ -1,14 +1,15 @@
 "use client";
 
+import { Settings, Code2, Plug, Gamepad2, Box, GitBranch } from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
 
 const techStack = [
-  { name: "C/C++", icon: "⚙️" },
-  { name: "Python", icon: "🐍" },
-  { name: "Arduino", icon: "🔌" },
-  { name: "Unreal Engine", icon: "🎮" },
-  { name: "Autodesk Maya", icon: "🧊" },
-  { name: "Git", icon: "🔀" },
+  { name: "C/C++", icon: Settings, url: "https://isocpp.org" },
+  { name: "Python", icon: Code2, url: "https://www.python.org" },
+  { name: "Arduino", icon: Plug, url: "https://www.arduino.cc" },
+  { name: "Unreal Engine", icon: Gamepad2, url: "https://www.unrealengine.com" },
+  { name: "Autodesk Maya", icon: Box, url: "https://www.autodesk.com/products/maya" },
+  { name: "Git", icon: GitBranch, url: "https://git-scm.com" },
 ];
 
 export default function TechStrip() {
@@ -24,17 +25,21 @@ export default function TechStrip() {
         <AnimatedSection delay={0.15}>
           <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
             {techStack.map((tech) => (
-              <div
+              <a
                 key={tech.name}
-                className="flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-white/4 border border-white/10 backdrop-blur-md text-muted hover:text-white hover:border-primary/40 hover:bg-white/8 transition-all duration-300 group cursor-default shadow-sm shadow-black/5"
+                href={tech.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-white/4 border border-white/10 backdrop-blur-md text-muted hover:text-white hover:border-primary/40 hover:bg-white/8 transition-all duration-300 group cursor-pointer shadow-sm shadow-black/5"
               >
-                <span className="text-lg opacity-60 group-hover:opacity-100 transition-opacity grayscale group-hover:grayscale-0">
-                  {tech.icon}
-                </span>
+                <tech.icon 
+                  size={16} 
+                  className="opacity-60 group-hover:opacity-100 transition-opacity text-muted group-hover:text-white"
+                />
                 <span className="text-xs font-semibold tracking-wide">
                   {tech.name}
                 </span>
-              </div>
+              </a>
             ))}
           </div>
         </AnimatedSection>
