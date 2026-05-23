@@ -10,86 +10,38 @@ const interests = [
     title: "Embedded Systems",
     description:
       "Building IoT prototypes and microcontroller-based projects with Arduino and ESP32.",
-    illustration: "embedded",
+    colorClass: "text-primary bg-primary/10 border-primary/20 group-hover:bg-primary group-hover:text-white group-hover:border-primary/40",
+    hoverBorder: "hover:border-primary/40",
+    shadowClass: "hover:shadow-primary/5",
   },
   {
     icon: Globe,
     title: "Web Development",
     description:
       "Creating responsive web apps and personal projects using Next.js, HTML/CSS, and Tailwind.",
-    illustration: "web",
+    colorClass: "text-blue-400 bg-blue-500/10 border-blue-500/20 group-hover:bg-blue-500 group-hover:text-white group-hover:border-blue-500/40",
+    hoverBorder: "hover:border-blue-500/40",
+    shadowClass: "hover:shadow-blue-500/5",
   },
   {
     icon: Gamepad2,
     title: "Game Development",
     description:
       "Creating interactive 3D games and real-time experiences using Unreal Engine and Autodesk Maya.",
-    illustration: "game",
+    colorClass: "text-pink-400 bg-pink-500/10 border-pink-500/20 group-hover:bg-pink-500 group-hover:text-white group-hover:border-pink-500/40",
+    hoverBorder: "hover:border-pink-500/40",
+    shadowClass: "hover:shadow-pink-500/5",
   },
   {
     icon: Zap,
     title: "Signal Processing",
     description:
       "Exploring DSP fundamentals, Python-based simulations, and communication systems.",
-    illustration: "signal",
+    colorClass: "text-green-400 bg-green-500/10 border-green-500/20 group-hover:bg-green-500 group-hover:text-white group-hover:border-green-500/40",
+    hoverBorder: "hover:border-green-500/40",
+    shadowClass: "hover:shadow-green-500/5",
   },
 ];
-
-function CardIllustration({ type }: { type: string }) {
-  if (type === "embedded") {
-    return (
-      <div className="flex gap-2 mb-4">
-        {["🔧", "📟", "💡"].map((emoji, i) => (
-          <div
-            key={i}
-            className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 backdrop-blur-md flex items-center justify-center text-sm transition-all duration-300 group-hover:scale-105 group-hover:bg-primary/20 group-hover:border-primary/40 shadow-sm"
-          >
-            {emoji}
-          </div>
-        ))}
-      </div>
-    );
-  }
-  if (type === "web") {
-    return (
-      <div className="flex gap-2 mb-4">
-        {["💻", "🌐", "⚡"].map((emoji, i) => (
-          <div
-            key={i}
-            className="w-10 h-10 rounded-lg bg-blue-500/10 border border-blue-500/20 backdrop-blur-md flex items-center justify-center text-sm transition-all duration-300 group-hover:scale-105 group-hover:bg-blue-500/20 group-hover:border-blue-500/40 shadow-sm"
-          >
-            {emoji}
-          </div>
-        ))}
-      </div>
-    );
-  }
-  if (type === "game") {
-    return (
-      <div className="flex gap-2 mb-4">
-        {["🎮", "🕹️", "👾"].map((emoji, i) => (
-          <div
-            key={i}
-            className="w-10 h-10 rounded-lg bg-pink-500/10 border border-pink-500/20 backdrop-blur-md flex items-center justify-center text-sm transition-all duration-300 group-hover:scale-105 group-hover:bg-pink-500/20 group-hover:border-pink-500/40 shadow-sm"
-          >
-            {emoji}
-          </div>
-        ))}
-      </div>
-    );
-  }
-  return (
-    <div className="flex items-end gap-1 mb-4 h-8">
-      {[80, 50, 95, 65, 85, 40, 70].map((h, i) => (
-        <div
-          key={i}
-          className="w-2.5 rounded-sm bg-green-500/30 backdrop-blur-md transition-all duration-500 group-hover:bg-green-500/50 group-hover:scale-y-110 origin-bottom shadow-sm"
-          style={{ height: `${h}%` }}
-        />
-      ))}
-    </div>
-  );
-}
 
 export default function WhatIDo() {
   return (
@@ -143,16 +95,21 @@ export default function WhatIDo() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {interests.map((item, index) => (
             <AnimatedSection key={item.title} delay={index * 0.1}>
-              <div className="relative group p-7 rounded-2xl bg-white/3 border border-white/12 hover:border-primary/40 backdrop-blur-xl transition-all duration-500 hover:-translate-y-1.5 flex flex-col h-full shadow-lg shadow-black/10 hover:shadow-primary/5 hover:bg-white/5 cursor-default">
-                <CardIllustration type={item.illustration} />
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center text-primary transition-all group-hover:scale-110 group-hover:bg-primary group-hover:text-white duration-300 shadow-sm shadow-primary/5">
-                    <item.icon size={20} />
-                  </div>
-                  <h3 className="text-lg font-bold text-white tracking-wide group-hover:text-primary transition-colors duration-300">
-                    {item.title}
-                  </h3>
+              <div className={`relative group p-8 rounded-2xl bg-white/3 border border-white/12 ${item.hoverBorder} backdrop-blur-xl transition-all duration-500 hover:-translate-y-1.5 flex flex-col h-full shadow-lg shadow-black/10 ${item.shadowClass} hover:bg-white/5 cursor-default`}>
+                
+                {/* Large Prominent Vector Symbol (Icon Badge) */}
+                <div className={`w-12 h-12 rounded-xl border flex items-center justify-center mb-5 transition-all duration-300 group-hover:scale-110 shadow-md ${item.colorClass}`}>
+                  <item.icon size={22} />
                 </div>
+
+                <h3 className={`text-xl font-bold text-white tracking-wide mb-3 transition-colors duration-300 ${
+                  index === 0 ? "group-hover:text-primary" :
+                  index === 1 ? "group-hover:text-blue-400" :
+                  index === 2 ? "group-hover:text-pink-400" :
+                  "group-hover:text-green-400"
+                }`}>
+                  {item.title}
+                </h3>
                 <p className="text-sm text-muted leading-relaxed font-medium">
                   {item.description}
                 </p>
