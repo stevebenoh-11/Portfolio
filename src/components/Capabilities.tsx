@@ -57,8 +57,8 @@ const capabilities = [
 
 export default function Capabilities() {
   return (
-    <section id="work" className="py-24 border-t border-border/50">
-      <div className="mx-auto max-w-7xl px-6">
+    <section id="work" className="py-16 sm:py-24 border-t border-border/50">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <AnimatedSection>
           <div className="text-center mb-16">
             <p className="text-sm text-primary font-medium uppercase tracking-widest mb-3">

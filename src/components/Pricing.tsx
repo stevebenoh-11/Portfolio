@@ -28,8 +28,8 @@ const features = [
 
 export default function Projects() {
   return (
-    <section id="services" className="py-24 border-t border-border/50">
-      <div className="mx-auto max-w-7xl px-6">
+    <section id="services" className="py-16 sm:py-24 border-t border-border/50">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <AnimatedSection>
           <div className="text-center mb-16">
             <p className="text-sm text-primary font-medium uppercase tracking-widest mb-3">
@@ -43,12 +43,12 @@ export default function Projects() {
 
         {/* Hero Project Card */}
         <AnimatedSection delay={0.1}>
-          <div className="liquid-glass rounded-2xl p-8 md:p-12 relative overflow-hidden">
+          <div className="liquid-glass rounded-2xl p-5 sm:p-8 md:p-12 relative overflow-hidden">
             {/* Background glow */}
             <div className="absolute -top-32 -right-32 w-80 h-80 bg-primary/8 rounded-full blur-3xl pointer-events-none" />
             <div className="absolute -bottom-20 -left-20 w-60 h-60 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
 
-            <div className="relative flex flex-col lg:flex-row items-center gap-10">
+            <div className="relative flex flex-col lg:flex-row items-start gap-8 lg:gap-10">
               {/* Left — Info */}
               <div className="flex-1">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/20 bg-primary/10 mb-5">
@@ -89,7 +89,7 @@ export default function Projects() {
               </div>
 
               {/* Right — Interactive Terminal Mockup */}
-              <div className="flex-1 w-full max-w-md">
+              <div className="flex-1 w-full max-w-md mx-auto lg:mx-0 overflow-x-auto">
                 <div className="rounded-xl border border-border bg-surface-alt shadow-xl shadow-black/30 overflow-hidden font-mono text-xs">
                   {/* Terminal Header */}
                   <div className="bg-surface px-4 py-3 border-b border-border flex items-center justify-between">

@@ -77,8 +77,8 @@ export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section className="py-24 border-t border-border/50">
-      <div className="mx-auto max-w-3xl px-6">
+    <section className="py-16 sm:py-24 border-t border-border/50">
+      <div className="mx-auto max-w-3xl px-4 sm:px-6">
         <AnimatedSection>
           <div className="text-center mb-12">
             <p className="text-sm text-primary font-medium uppercase tracking-widest mb-3">

@@ -14,8 +14,8 @@ const techStack = [
 
 export default function TechStrip() {
   return (
-    <section className="py-20 border-t border-b border-border/50">
-      <div className="mx-auto max-w-7xl px-6">
+    <section className="py-8 sm:py-20 border-t border-b border-border/50">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <AnimatedSection>
           <p className="text-center text-sm text-caption uppercase tracking-widest mb-10">
             Tools &amp; Languages I Work With

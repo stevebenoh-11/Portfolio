@@ -45,8 +45,8 @@ const interests = [
 
 export default function WhatIDo() {
   return (
-    <section id="about" className="py-24">
-      <div className="mx-auto max-w-7xl px-6">
+    <section id="about" className="py-16 sm:py-24">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <AnimatedSection>
           <div className="text-center mb-16">
             <p className="text-sm text-primary font-medium uppercase tracking-widest mb-3">
@@ -57,7 +57,7 @@ export default function WhatIDo() {
             </h2>
 
             {/* Social Links */}
-            <div className="flex items-center justify-center gap-3">
+            <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
               <a
                 href="https://github.com/stevebenoh-11"
                 target="_blank"

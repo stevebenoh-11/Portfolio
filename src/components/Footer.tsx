@@ -58,8 +58,8 @@ export default function Footer({
   onOpenTerms?: () => void;
 }) {
   return (
-    <footer className="border-t border-border/50 pt-20 pb-10">
-      <div className="mx-auto max-w-7xl px-6 flex flex-col items-center">
+    <footer className="border-t border-border/50 pt-12 sm:pt-20 pb-8 sm:pb-10">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 flex flex-col items-center">
         {/* Logo and Intro */}
         <div className="flex flex-col items-center text-center mb-8">
           <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center font-bold text-lg text-white mb-4 shadow-lg shadow-primary/20">

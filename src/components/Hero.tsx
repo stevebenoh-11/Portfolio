@@ -5,11 +5,11 @@ import { ArrowRight, Play } from "lucide-react";
 
 export default function Hero() {
   return (
-    <section id="home" className="relative min-h-screen flex flex-col justify-center pt-24 pb-12">
+    <section id="home" className="relative min-h-screen flex flex-col justify-center pt-20 sm:pt-24 pb-10 sm:pb-12">
       {/* Background glow */}
       <div className="absolute inset-0 hero-glow pointer-events-none" />
 
-      <div className="relative mx-auto max-w-7xl px-6 text-center">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 text-center">
         {/* Pill */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

@@ -178,3 +178,28 @@ button:active, a:active {
   transform: scale(0.96) !important;
 }
 
+/* ── Mobile & Touch Improvements ─────────────────────────────── */
+
+/* Remove iOS tap highlight flash */
+* {
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
+}
+
+/* Ensure all media is responsive */
+img, video, svg, canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Prevent text size adjustment on orientation change */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* Better font rendering on mobile */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

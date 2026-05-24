@@ -59,10 +59,10 @@ export default function CTA() {
   };
 
   return (
-    <section id="contact" className="py-24 border-t border-border/50">
-      <div className="mx-auto max-w-7xl px-6">
+    <section id="contact" className="py-16 sm:py-24 border-t border-border/50">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <AnimatedSection>
-          <div className="liquid-glass rounded-2xl p-8 md:p-12 relative overflow-hidden">
+          <div className="liquid-glass rounded-2xl p-6 sm:p-8 md:p-12 relative overflow-hidden">
             {/* Background glow */}
             <div className="absolute -top-20 -right-20 w-80 h-80 bg-primary/8 rounded-full blur-3xl pointer-events-none" />
             <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
