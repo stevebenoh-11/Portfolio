@@ -2,7 +2,7 @@
 
 import { Cpu, Globe, Gamepad2, Zap } from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
-import { GitHubIcon, LinkedInIcon, InstagramIcon } from "./Footer";
+import { GitHubIcon, LinkedInIcon, InstagramIcon, RedditIcon } from "./Footer";
 
 const interests = [
   {
@@ -87,6 +87,16 @@ export default function WhatIDo() {
               >
                 <InstagramIcon size={18} />
                 <span className="text-xs font-semibold group-hover:text-white transition-colors">Instagram</span>
+              </a>
+              <a
+                href="https://www.reddit.com/user/stevebenoh"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Reddit"
+                className="group flex items-center gap-2.5 px-4.5 py-2 rounded-xl bg-white/3 border border-white/12 backdrop-blur-xl text-muted hover:text-white hover:border-primary/40 hover:bg-white/5 transition-all duration-300 shadow-lg shadow-black/10 hover:shadow-primary/5 cursor-pointer"
+              >
+                <RedditIcon size={18} />
+                <span className="text-xs font-semibold group-hover:text-white transition-colors">Reddit</span>
               </a>
             </div>
           </div>
