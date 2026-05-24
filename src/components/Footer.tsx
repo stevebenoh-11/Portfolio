@@ -1,6 +1,6 @@
 "use client";
 
-import { Mail, MapPin, Phone, PhoneCall } from "lucide-react";
+import { Mail, MapPin, Phone } from "lucide-react";
 
 function GitHubIcon({ size = 16 }: { size?: number }) {
   return (
@@ -26,12 +26,21 @@ function InstagramIcon({ size = 16 }: { size?: number }) {
   );
 }
 
-export { GitHubIcon, LinkedInIcon, InstagramIcon };
+function RedditIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M24 11.5c0-1.65-1.35-3-3-3-.96 0-1.86.48-2.42 1.24-1.64-1-3.85-1.64-6.24-1.72l1.37-4.31 3.82.82c.03.88.75 1.57 1.63 1.57 1.1 0 2-1.1 2-2s-.9-2-2-2c-.79 0-1.48.47-1.81 1.14l-4.22-.9c-.19-.04-.38.07-.44.25l-1.6 5.03c-2.44.04-4.7.67-6.38 1.68-.56-.73-1.46-1.19-2.45-1.19-1.65 0-3 1.35-3 3 0 1.12.61 2.1 1.53 2.61-.06.29-.09.58-.09.89 0 3.86 4.7 7 10.5 7s10.5-3.14 10.5-7c0-.31-.03-.6-.09-.89.92-.51 1.53-1.49 1.53-2.61zm-18.5 2c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2zm10 5.17c-1.79 1.79-4.83 1.79-6.62 0-.15-.15-.15-.4 0-.55.15-.15.4-.15.55 0 1.48 1.48 4.02 1.48 5.5 0 .15-.15.4-.15.55 0 .15.15.15.4 0 .55zm-.68-3.17c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
+    </svg>
+  );
+}
+
+export { GitHubIcon, LinkedInIcon, InstagramIcon, RedditIcon };
 
 const socialLinks = [
   { icon: GitHubIcon, href: "https://github.com/stevebenoh-11", label: "GitHub" },
   { icon: LinkedInIcon, href: "https://www.linkedin.com/in/stevebenoh", label: "LinkedIn" },
   { icon: InstagramIcon, href: "https://www.instagram.com/starky._.36", label: "Instagram" },
+  { icon: RedditIcon, href: "https://www.reddit.com/user/stevebenoh", label: "Reddit" }
 ];
 
 const navigateLinks = [
