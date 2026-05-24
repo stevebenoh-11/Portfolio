@@ -89,7 +89,7 @@ export default function WhatIDo() {
                 <span className="text-xs font-semibold group-hover:text-white transition-colors">Instagram</span>
               </a>
               <a
-                href="https://www.reddit.com/user/stevebenoh"
+                href="https://www.reddit.com/user/OkFortune8186/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Reddit"

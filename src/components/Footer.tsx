@@ -40,7 +40,7 @@ const socialLinks = [
   { icon: GitHubIcon, href: "https://github.com/stevebenoh-11", label: "GitHub" },
   { icon: LinkedInIcon, href: "https://www.linkedin.com/in/stevebenoh", label: "LinkedIn" },
   { icon: InstagramIcon, href: "https://www.instagram.com/starky._.36", label: "Instagram" },
-  { icon: RedditIcon, href: "https://www.reddit.com/user/stevebenoh", label: "Reddit" }
+  { icon: RedditIcon, href: "https://www.reddit.com/user/OkFortune8186/", label: "Reddit" }
 ];
 
 const navigateLinks = [
