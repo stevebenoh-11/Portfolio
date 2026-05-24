@@ -1,19 +1,8 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 
-// ─── Email Transporter ────────────────────────────────────────────────────────
-function createTransporter() {
-  return nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.GMAIL_USER,
-      pass: process.env.GMAIL_APP_PASSWORD,
-    },
-  });
-}
-
-// ─── Send Email Notification ──────────────────────────────────────────────────
+// ─── Send Email Notification via Resend ───────────────────────────────────────
 async function sendEmailNotification(data: {
   name: string;
   email: string;
@@ -21,12 +10,12 @@ async function sendEmailNotification(data: {
   subject: string;
   message: string;
 }) {
-  if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
-    console.warn("[Email] GMAIL_USER or GMAIL_APP_PASSWORD not set — skipping email.");
+  if (!process.env.RESEND_API_KEY) {
+    console.warn("[Email] RESEND_API_KEY not set — skipping email.");
     return;
   }
 
-  const transporter = createTransporter();
+  const resend = new Resend(process.env.RESEND_API_KEY);
 
   const htmlBody = `
     <!DOCTYPE html>
@@ -37,7 +26,7 @@ async function sendEmailNotification(data: {
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0a0a0a; color: #e5e5e5; margin: 0; padding: 0; }
         .container { max-width: 600px; margin: 40px auto; background: #141414; border: 1px solid #222; border-radius: 16px; overflow: hidden; }
         .header { background: linear-gradient(135deg, #7c3aed, #4f46e5); padding: 32px 36px; }
-        .header h1 { color: #fff; margin: 0; font-size: 22px; font-weight: 700; letter-spacing: -0.3px; }
+        .header h1 { color: #fff; margin: 0; font-size: 22px; font-weight: 700; }
         .header p { color: rgba(255,255,255,0.7); margin: 6px 0 0; font-size: 14px; }
         .body { padding: 32px 36px; }
         .field { margin-bottom: 20px; }
@@ -85,56 +74,18 @@ async function sendEmailNotification(data: {
     </html>
   `;
 
-  await transporter.sendMail({
-    from: `"Portfolio Contact" <${process.env.GMAIL_USER}>`,
-    to: "stevebenoh@gmail.com",
+  const { error } = await resend.emails.send({
+    from: "Portfolio Contact <onboarding@resend.dev>",
+    to: ["stevebenoh@gmail.com"],
     replyTo: data.email,
     subject: `📬 New Message: ${data.subject || "Portfolio Contact"} — from ${data.name}`,
     html: htmlBody,
-    text: `New portfolio message from ${data.name}\n\nEmail: ${data.email}\nPhone: ${data.phone || "Not provided"}\nSubject: ${data.subject || "General Inquiry"}\n\nMessage:\n${data.message}`,
   });
 
-  console.log(`[Email] Notification sent to stevebenoh@gmail.com`);
-}
-
-// ─── Send SMS via Twilio (optional) ──────────────────────────────────────────
-async function sendSmsNotification(data: {
-  name: string;
-  email: string;
-  subject: string;
-}) {
-  const { TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_PHONE_NUMBER, NOTIFY_PHONE } = process.env;
-
-  if (!TWILIO_ACCOUNT_SID || !TWILIO_AUTH_TOKEN || !TWILIO_PHONE_NUMBER || !NOTIFY_PHONE) {
-    // Twilio not configured — silently skip
-    return;
-  }
-
-  try {
-    const url = `https://api.twilio.com/2010-04-01/Accounts/${TWILIO_ACCOUNT_SID}/Messages.json`;
-    const body = `📬 Portfolio: New message from ${data.name} (${data.email}). Subject: "${data.subject || "General Inquiry"}". Check stevebenoh@gmail.com for details.`;
-
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        Authorization: `Basic ${Buffer.from(`${TWILIO_ACCOUNT_SID}:${TWILIO_AUTH_TOKEN}`).toString("base64")}`,
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: new URLSearchParams({
-        From: TWILIO_PHONE_NUMBER,
-        To: NOTIFY_PHONE,
-        Body: body,
-      }),
-    });
-
-    if (response.ok) {
-      console.log(`[SMS] Notification sent to ${NOTIFY_PHONE}`);
-    } else {
-      const err = await response.json();
-      console.error("[SMS] Twilio error:", err);
-    }
-  } catch (err) {
-    console.error("[SMS] Failed to send SMS:", err);
+  if (error) {
+    console.error("[Email] Resend error:", error);
+  } else {
+    console.log("[Email] Notification sent to stevebenoh@gmail.com");
   }
 }
 
@@ -180,14 +131,9 @@ export async function POST(request: Request) {
       },
     });
 
-    // 2. Send email notification (non-blocking — don't fail the request if email fails)
+    // 2. Send email notification (non-blocking)
     sendEmailNotification({ name, email, phone: phone || "Not Provided", subject, message }).catch(
-      (err) => console.error("[Email] Failed to send notification:", err)
-    );
-
-    // 3. Send SMS notification via Twilio (optional, non-blocking)
-    sendSmsNotification({ name, email, subject }).catch(
-      (err) => console.error("[SMS] Failed to send notification:", err)
+      (err) => console.error("[Email] Failed:", err)
     );
 
     return NextResponse.json({ success: true, submission: newSubmission });
