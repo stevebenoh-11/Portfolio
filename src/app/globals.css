@@ -1,16 +1,18 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-background: #0A0A0A;
-  --color-foreground: #FFFFFF;
-  --color-primary: #FF5C2B;
-  --color-primary-hover: #FF7A4D;
-  --color-surface: #141414;
-  --color-surface-alt: #1A1A1A;
-  --color-border: #262626;
-  --color-border-hover: rgba(255, 92, 43, 0.2);
-  --color-muted: #9CA3AF;
-  --color-caption: #525252;
+  /* ── Core Palette: Midnight Navy × Electric Cyan ───────────── */
+  --color-background: #060B18;
+  --color-foreground: #E8F0FE;
+  --color-primary: #00D4FF;
+  --color-primary-hover: #33DDFF;
+  --color-secondary: #7B2FFF;
+  --color-surface: #0D1628;
+  --color-surface-alt: #111E35;
+  --color-border: #1A2D4A;
+  --color-border-hover: rgba(0, 212, 255, 0.25);
+  --color-muted: #8BA4C8;
+  --color-caption: #3D5070;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -21,13 +23,13 @@ html {
 }
 
 body {
-  background-color: #0A0A0A;
-  color: #FFFFFF;
+  background-color: #060B18;
+  color: #E8F0FE;
   font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
 }
 
-/* Noise overlay */
+/* ── PCB/Circuit-board noise overlay ───────────────────────── */
 body::before {
   content: "";
   position: fixed;
@@ -37,81 +39,82 @@ body::before {
   height: 100%;
   pointer-events: none;
   z-index: 9999;
-  opacity: 0.03;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 256px 256px;
 }
 
-/* Scrollbar */
+/* ── Scrollbar ──────────────────────────────────────────────── */
 ::-webkit-scrollbar {
   width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0A0A0A;
+  background: #060B18;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #262626;
+  background: #1A2D4A;
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #FF5C2B;
+  background: #00D4FF;
 }
 
-/* Selection */
+/* ── Selection ──────────────────────────────────────────────── */
 ::selection {
-  background: rgba(255, 92, 43, 0.3);
-  color: #FFFFFF;
+  background: rgba(0, 212, 255, 0.25);
+  color: #E8F0FE;
 }
 
-/* Utility classes */
+/* ── Glassmorphism Nav ──────────────────────────────────────── */
 .glass-nav {
-  background: rgba(10, 10, 10, 0.75);
-  backdrop-filter: blur(20px) saturate(190%);
-  -webkit-backdrop-filter: blur(20px) saturate(190%);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(6, 11, 24, 0.80);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(0, 212, 255, 0.07);
 }
 
-/* iOS 26 Liquid Glass Texture */
+/* ── Liquid Glass Panels ────────────────────────────────────── */
 .liquid-glass {
-  background: rgba(20, 20, 20, 0.4) !important;
-  backdrop-filter: blur(24px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  box-shadow: 
-    inset 0 1px 1px rgba(255, 255, 255, 0.12),
-    inset 0 -1px 2px rgba(0, 0, 0, 0.3),
-    0 8px 32px rgba(0, 0, 0, 0.4),
-    0 1px 3px rgba(0, 0, 0, 0.2) !important;
+  background: rgba(13, 22, 40, 0.5) !important;
+  backdrop-filter: blur(24px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(160%) !important;
+  border: 1px solid rgba(0, 212, 255, 0.1) !important;
+  box-shadow:
+    inset 0 1px 1px rgba(0, 212, 255, 0.08),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.4),
+    0 8px 32px rgba(0, 0, 0, 0.5),
+    0 1px 3px rgba(0, 0, 0, 0.3) !important;
 }
 
-/* High-Tactile Liquid-Glass Hover with Refractive Border and Glow */
+/* ── Hover Lift with Cyan Border Glow ───────────────────────── */
 .liquid-glass-hover {
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 .liquid-glass-hover:hover {
   transform: translateY(-6px) scale(1.015) !important;
-  background: rgba(26, 26, 26, 0.55) !important;
-  border-color: rgba(255, 92, 43, 0.4) !important;
-  box-shadow: 
-    inset 0 1px 2px rgba(255, 255, 255, 0.2),
-    inset 0 -1px 2px rgba(0, 0, 0, 0.2),
-    0 20px 40px rgba(255, 92, 43, 0.08),
-    0 10px 20px rgba(0, 0, 0, 0.5) !important;
+  background: rgba(17, 30, 53, 0.65) !important;
+  border-color: rgba(0, 212, 255, 0.35) !important;
+  box-shadow:
+    inset 0 1px 2px rgba(0, 212, 255, 0.15),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.3),
+    0 20px 40px rgba(0, 212, 255, 0.07),
+    0 10px 20px rgba(0, 0, 0, 0.55) !important;
 }
 
-/* Iridescent Text Shimmer for premium accents */
+/* ── Electric Cyan Shimmer Text ─────────────────────────────── */
 .text-shimmer {
   background: linear-gradient(
     to right,
-    #FFFFFF 20%,
-    #FF7A4D 40%,
-    #FF5C2B 60%,
-    #FFFFFF 80%
+    #E8F0FE 15%,
+    #00D4FF 40%,
+    #7B2FFF 60%,
+    #00D4FF 75%,
+    #E8F0FE 90%
   );
   background-size: 200% auto;
   color: transparent;
@@ -126,29 +129,17 @@ body::before {
   }
 }
 
-/* Moving Liquid Glow backdrop blobs */
+/* ── Animated Ambient Glow Blobs ────────────────────────────── */
 @keyframes liquid-drift-1 {
-  0% {
-    transform: translate(0px, 0px) scale(1) rotate(0deg);
-  }
-  50% {
-    transform: translate(60px, -80px) scale(1.25) rotate(180deg);
-  }
-  100% {
-    transform: translate(0px, 0px) scale(1) rotate(360deg);
-  }
+  0%   { transform: translate(0px, 0px)    scale(1)    rotate(0deg);   }
+  50%  { transform: translate(60px, -80px) scale(1.25) rotate(180deg); }
+  100% { transform: translate(0px, 0px)    scale(1)    rotate(360deg); }
 }
 
 @keyframes liquid-drift-2 {
-  0% {
-    transform: translate(0px, 0px) scale(1) rotate(0deg);
-  }
-  50% {
-    transform: translate(-80px, 60px) scale(0.8) rotate(-180deg);
-  }
-  100% {
-    transform: translate(0px, 0px) scale(1) rotate(-360deg);
-  }
+  0%   { transform: translate(0px, 0px)    scale(1)   rotate(0deg);    }
+  50%  { transform: translate(-80px, 60px) scale(0.8) rotate(-180deg); }
+  100% { transform: translate(0px, 0px)    scale(1)   rotate(-360deg); }
 }
 
 .animate-liquid-glow-1 {
@@ -159,46 +150,43 @@ body::before {
   animation: liquid-drift-2 35s infinite alternate-reverse ease-in-out;
 }
 
+/* ── Glow Button ────────────────────────────────────────────── */
 .glow-button {
-  box-shadow: 0 0 20px rgba(255, 92, 43, 0.25), 0 0 40px rgba(255, 92, 43, 0.08);
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.3), 0 0 40px rgba(0, 212, 255, 0.1);
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .glow-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 0 30px rgba(255, 92, 43, 0.45), 0 0 60px rgba(255, 92, 43, 0.15);
+  box-shadow: 0 0 30px rgba(0, 212, 255, 0.5), 0 0 60px rgba(0, 212, 255, 0.2);
 }
 
+/* ── Hero radial background glow ───────────────────────────── */
 .hero-glow {
-  background: radial-gradient(ellipse 80% 60% at 50% 40%, #1c0e09 0%, transparent 70%);
+  background: radial-gradient(ellipse 80% 60% at 50% 40%, #071525 0%, transparent 70%);
 }
 
-/* Active button state */
+/* ── Active state ───────────────────────────────────────────── */
 button:active, a:active {
   transform: scale(0.96) !important;
 }
 
-/* ── Mobile & Touch Improvements ─────────────────────────────── */
-
-/* Remove iOS tap highlight flash */
+/* ── Mobile & Touch ─────────────────────────────────────────── */
 * {
   -webkit-tap-highlight-color: transparent;
   box-sizing: border-box;
 }
 
-/* Ensure all media is responsive */
 img, video, svg, canvas {
   max-width: 100%;
   height: auto;
 }
 
-/* Prevent text size adjustment on orientation change */
 html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
 }
 
-/* Better font rendering on mobile */
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

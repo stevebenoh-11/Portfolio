@@ -52,9 +52,9 @@ export default function Home() {
     <>
       {/* Dynamic Background Floating Liquid Glass Blobs (iOS 26 Style Ambient Refractions) */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden select-none">
-        <div className="absolute top-[20%] left-[15%] w-[45vw] h-[45vw] rounded-full bg-primary/3 blur-[120px] animate-liquid-glow-1" />
-        <div className="absolute bottom-[25%] right-[10%] w-[50vw] h-[50vw] rounded-full bg-purple-600/3 blur-[150px] animate-liquid-glow-2" />
-        <div className="absolute top-[60%] left-[5%] w-[35vw] h-[35vw] rounded-full bg-primary/2 blur-[130px] animate-liquid-glow-2" />
+        <div className="absolute top-[20%] left-[15%] w-[45vw] h-[45vw] rounded-full bg-[#00D4FF]/[0.04] blur-[120px] animate-liquid-glow-1" />
+        <div className="absolute bottom-[25%] right-[10%] w-[50vw] h-[50vw] rounded-full bg-[#7B2FFF]/[0.04] blur-[150px] animate-liquid-glow-2" />
+        <div className="absolute top-[60%] left-[5%] w-[35vw] h-[35vw] rounded-full bg-[#00D4FF]/[0.03] blur-[130px] animate-liquid-glow-2" />
       </div>
 
       {/* 1. Main Content Layout */}
@@ -86,7 +86,7 @@ export default function Home() {
 
       {/* 3. Ultimate Inescapable Lockout Overlay (Fallback for Declined Terms) */}
       {isDeclined && (
-        <div className="fixed inset-0 z-[9999] bg-[#0A0A0A] flex flex-col items-center justify-center p-6 text-center select-none animate-fade-in">
+        <div className="fixed inset-0 z-[9999] bg-[#060B18] flex flex-col items-center justify-center p-6 text-center select-none animate-fade-in">
           {/* Lockout Radial Background Glow */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-red-500/5 rounded-full blur-3xl pointer-events-none" />
 
