@@ -174,29 +174,87 @@ button:active, a:active {
    ════════════════════════════════════════════════════════════════ */
 
 /* Base: smooth colour transition so the complete-state glow fades in */
+/* Base: smooth transition so elements boot up seamlessly */
 .circuit-trace {
-  transition: stroke 1s ease, filter 1s ease;
+  transition: stroke 0.8s cubic-bezier(0.4, 0, 0.2, 1), filter 0.8s ease;
 }
 
 .circuit-via {
-  transition: opacity 0.45s ease;
+  transition: opacity 0.45s ease, fill 0.8s ease, stroke 0.8s ease, filter 0.8s ease;
 }
 
-/* ── COMPLETE STATE: all traces light up and glow ─────────────── */
+.circuit-ic, .circuit-smd {
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.8s ease, fill 0.8s ease, filter 0.8s ease;
+}
+
+/* ── COMPLETE STATE: Ultra-enriched neon glow system ─────────── */
 svg.circuit-complete .circuit-trace {
-  stroke: rgba(0, 168, 208, 0.68) !important;
-  filter: drop-shadow(0 0 4px rgba(0, 175, 215, 0.45));
+  stroke: #00e5ff !important;
+  filter: 
+    drop-shadow(0 0 2px rgba(0, 229, 255, 0.95)) 
+    drop-shadow(0 0 6px rgba(0, 229, 255, 0.65))
+    drop-shadow(0 0 12px rgba(0, 229, 255, 0.3)) !important;
 }
 
 svg.circuit-complete .circuit-via {
-  fill: rgba(0, 195, 240, 0.92) !important;
-  filter: drop-shadow(0 0 6px rgba(0, 195, 240, 0.65));
-  animation: via-pulse 2s ease-in-out infinite;
+  fill: #ffffff !important;
+  stroke: #00e5ff !important;
+  stroke-width: 1.5;
+  filter: 
+    drop-shadow(0 0 4px rgba(0, 229, 255, 1)) 
+    drop-shadow(0 0 10px rgba(0, 229, 255, 0.75))
+    drop-shadow(0 0 16px rgba(0, 229, 255, 0.4)) !important;
+  animation: via-pulse 1.6s ease-in-out infinite;
+}
+
+svg.circuit-complete .circuit-ic {
+  opacity: 0.95 !important;
+}
+
+svg.circuit-complete .circuit-ic rect {
+  stroke: #00e5ff !important;
+  fill: rgba(0, 147, 181, 0.12) !important;
+  filter: drop-shadow(0 0 5px rgba(0, 229, 255, 0.45));
+}
+
+svg.circuit-complete .circuit-ic text {
+  fill: #00e5ff !important;
+  filter: drop-shadow(0 0 1.5px rgba(0, 229, 255, 0.7));
+}
+
+svg.circuit-complete .circuit-ic line {
+  stroke: rgba(0, 229, 255, 0.8) !important;
+}
+
+svg.circuit-complete .circuit-smd {
+  opacity: 0.9 !important;
+  stroke: #00e5ff !important;
+  filter: drop-shadow(0 0 4px rgba(0, 229, 255, 0.4));
+}
+
+svg.circuit-complete .circuit-smd text {
+  fill: #00e5ff !important;
+  filter: drop-shadow(0 0 1px rgba(0, 229, 255, 0.6));
+}
+
+svg.circuit-complete .circuit-smd line {
+  stroke: #00e5ff !important;
 }
 
 @keyframes via-pulse {
-  0%, 100% { opacity: 0.82; }
-  50%       { opacity: 1;    }
+  0%, 100% {
+    opacity: 0.85;
+    filter: 
+      drop-shadow(0 0 3px rgba(0, 229, 255, 1)) 
+      drop-shadow(0 0 7px rgba(0, 229, 255, 0.6));
+  }
+  50% {
+    opacity: 1;
+    filter: 
+      drop-shadow(0 0 5px rgba(0, 229, 255, 1)) 
+      drop-shadow(0 0 13px rgba(0, 229, 255, 0.85))
+      drop-shadow(0 0 18px rgba(0, 229, 255, 0.4));
+  }
 }
 
 /* ── Mobile & Touch ─────────────────────────────────────────── */

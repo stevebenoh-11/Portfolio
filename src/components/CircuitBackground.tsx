@@ -186,15 +186,12 @@ export default function CircuitBackground() {
       {/* PCB substrate dot grid */}
       <rect width="1440" height="900" fill="url(#pcb-grid)" />
 
-      {/* ── CIRCUIT TRACES ─────────────────────────────────────── */}
-      {TRACES.map(([d, startAt, endAt], i) => (
+      {/* ── BASE CHANNEL ETCHINGS (always visible physical track lanes) ── */}
+      {TRACES.map(([d], i) => (
         <path
-          key={`t${i}`}
-          className="circuit-trace"
+          key={`bg-t${i}`}
           d={d}
-          data-start-at={startAt}
-          data-end-at={endAt}
-          stroke={TC}
+          stroke="rgba(0, 100, 135, 0.08)"
           strokeWidth="1.5"
           fill="none"
           strokeLinecap="round"
@@ -202,8 +199,27 @@ export default function CircuitBackground() {
         />
       ))}
 
+      {/* ── ACTIVE SCROLL-DRIVEN TRACES (drawn on scroll with subtle glow) ── */}
+      {TRACES.map(([d, startAt, endAt], i) => (
+        <path
+          key={`t${i}`}
+          className="circuit-trace"
+          d={d}
+          data-start-at={startAt}
+          data-end-at={endAt}
+          stroke="rgba(0, 168, 208, 0.52)"
+          strokeWidth="1.8"
+          fill="none"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          style={{
+            filter: "drop-shadow(0 0 1px rgba(0, 168, 208, 0.25))",
+          }}
+        />
+      ))}
+
       {/* ── IC CHIP: MAIN MCU (center, 665-775 × 183-248) ─────── */}
-      <g opacity="0.52">
+      <g className="circuit-ic" opacity="0.52">
         <rect x="665" y="183" width="110" height="65" rx="5"
           stroke="rgba(0,128,162,0.55)" fill="rgba(0,85,115,0.05)" strokeWidth="1.5" />
         {/* Top pins */}
@@ -230,7 +246,7 @@ export default function CircuitBackground() {
       </g>
 
       {/* ── IC CHIP: REG (left-top, 332-388 × 183-228) ─────────── */}
-      <g opacity="0.48">
+      <g className="circuit-ic" opacity="0.48">
         <rect x="332" y="183" width="56" height="45" rx="3"
           stroke="rgba(0,125,158,0.45)" fill="rgba(0,80,108,0.04)" strokeWidth="1.2" />
         <line x1="352" y1="183" x2="352" y2="174" stroke="rgba(0,115,148,0.38)" strokeWidth="1" />
@@ -241,7 +257,7 @@ export default function CircuitBackground() {
       </g>
 
       {/* ── IC CHIP: SEN (right-top, 1052-1108 × 183-228) ─────── */}
-      <g opacity="0.48">
+      <g className="circuit-ic" opacity="0.48">
         <rect x="1052" y="183" width="56" height="45" rx="3"
           stroke="rgba(0,125,158,0.45)" fill="rgba(0,80,108,0.04)" strokeWidth="1.2" />
         <line x1="1072" y1="183" x2="1072" y2="174" stroke="rgba(0,115,148,0.38)" strokeWidth="1" />
@@ -252,7 +268,7 @@ export default function CircuitBackground() {
       </g>
 
       {/* ── IC CHIP: DRV (left-mid, 332-388 × 428-478) ─────────── */}
-      <g opacity="0.48">
+      <g className="circuit-ic" opacity="0.48">
         <rect x="332" y="428" width="56" height="50" rx="3"
           stroke="rgba(0,125,158,0.45)" fill="rgba(0,80,108,0.04)" strokeWidth="1.2" />
         <line x1="352" y1="428" x2="352" y2="419" stroke="rgba(0,115,148,0.38)" strokeWidth="1" />
@@ -263,7 +279,7 @@ export default function CircuitBackground() {
       </g>
 
       {/* ── IC CHIP: AMP (right-mid, 1052-1108 × 428-478) ─────── */}
-      <g opacity="0.48">
+      <g className="circuit-ic" opacity="0.48">
         <rect x="1052" y="428" width="56" height="50" rx="3"
           stroke="rgba(0,125,158,0.45)" fill="rgba(0,80,108,0.04)" strokeWidth="1.2" />
         <line x1="1072" y1="428" x2="1072" y2="419" stroke="rgba(0,115,148,0.38)" strokeWidth="1" />
@@ -275,32 +291,32 @@ export default function CircuitBackground() {
 
       {/* ── SMD RESISTORS (small rect along traces) ─────────────── */}
       {/* y=300 between x=55-360 */}
-      <rect x="184" y="295" width="22" height="10" rx="1"
+      <rect className="circuit-smd" x="184" y="295" width="22" height="10" rx="1"
         stroke="rgba(0,125,160,0.48)" fill="rgba(0,90,118,0.06)" strokeWidth="1" opacity="0.55" />
       {/* y=300 between x=720-1080 */}
-      <rect x="884" y="295" width="22" height="10" rx="1"
+      <rect className="circuit-smd" x="884" y="295" width="22" height="10" rx="1"
         stroke="rgba(0,125,160,0.48)" fill="rgba(0,90,118,0.06)" strokeWidth="1" opacity="0.55" />
       {/* y=550 between x=360-720 */}
-      <rect x="524" y="545" width="22" height="10" rx="1"
+      <rect className="circuit-smd" x="524" y="545" width="22" height="10" rx="1"
         stroke="rgba(0,125,160,0.48)" fill="rgba(0,90,118,0.06)" strokeWidth="1" opacity="0.55" />
       {/* y=550 between x=1080-1385 */}
-      <rect x="1207" y="545" width="22" height="10" rx="1"
+      <rect className="circuit-smd" x="1207" y="545" width="22" height="10" rx="1"
         stroke="rgba(0,125,160,0.48)" fill="rgba(0,90,118,0.06)" strokeWidth="1" opacity="0.55" />
 
       {/* ── CAPACITOR SYMBOLS (two parallel lines ⊣) ─────────── */}
       {/* Left rail near y=430 */}
-      <g opacity="0.52">
+      <g className="circuit-smd" opacity="0.52">
         <line x1="46" y1="427" x2="64" y2="427" stroke="rgba(0,125,160,0.52)" strokeWidth="1.8" />
         <line x1="46" y1="432" x2="64" y2="432" stroke="rgba(0,125,160,0.42)" strokeWidth="1" />
       </g>
       {/* Right rail near y=430 */}
-      <g opacity="0.52">
+      <g className="circuit-smd" opacity="0.52">
         <line x1="1376" y1="427" x2="1394" y2="427" stroke="rgba(0,125,160,0.52)" strokeWidth="1.8" />
         <line x1="1376" y1="432" x2="1394" y2="432" stroke="rgba(0,125,160,0.42)" strokeWidth="1" />
       </g>
 
       {/* ── VCC POWER SYMBOL (top-left) ──────────────────────── */}
-      <g opacity="0.42">
+      <g className="circuit-smd" opacity="0.42">
         <line x1="55" y1="26" x2="55" y2="62" stroke="rgba(0,125,160,0.48)" strokeWidth="1.5" />
         <line x1="44" y1="27" x2="66" y2="27" stroke="rgba(0,125,160,0.58)" strokeWidth="2" />
         <line x1="49" y1="21" x2="61" y2="21" stroke="rgba(0,125,160,0.48)" strokeWidth="1.2" />
@@ -308,7 +324,7 @@ export default function CircuitBackground() {
       </g>
 
       {/* ── GND SYMBOL (bottom-left) ─────────────────────────── */}
-      <g opacity="0.42">
+      <g className="circuit-smd" opacity="0.42">
         <line x1="55" y1="838" x2="55" y2="862" stroke="rgba(0,125,160,0.48)" strokeWidth="1.5" />
         <line x1="44" y1="862" x2="66" y2="862" stroke="rgba(0,125,160,0.58)" strokeWidth="2" />
         <line x1="49" y1="867" x2="61" y2="867" stroke="rgba(0,125,160,0.45)" strokeWidth="1.2" />
@@ -316,7 +332,7 @@ export default function CircuitBackground() {
       </g>
 
       {/* ── GND SYMBOL (bottom-right — final connection point) ── */}
-      <g opacity="0.42">
+      <g className="circuit-smd" opacity="0.42">
         <line x1="1385" y1="838" x2="1385" y2="862" stroke="rgba(0,125,160,0.48)" strokeWidth="1.5" />
         <line x1="1374" y1="862" x2="1396" y2="862" stroke="rgba(0,125,160,0.58)" strokeWidth="2" />
         <line x1="1379" y1="867" x2="1391" y2="867" stroke="rgba(0,125,160,0.45)" strokeWidth="1.2" />
@@ -333,7 +349,7 @@ export default function CircuitBackground() {
           r="3"
           fill={VC}
           data-threshold={threshold}
-          style={{ opacity: 0, transition: "opacity 0.45s ease" }}
+          style={{ opacity: 0 }}
         />
       ))}
     </svg>
