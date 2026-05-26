@@ -12,6 +12,7 @@ import FAQ from "@/components/FAQ";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
 import LegalModal from "@/components/LegalModal";
+import CircuitBackground from "@/components/CircuitBackground";
 
 export default function Home() {
   const [legalTab, setLegalTab] = useState<"privacy" | "terms" | null>(null);
@@ -50,12 +51,15 @@ export default function Home() {
 
   return (
     <>
-      {/* Dynamic Background Floating Liquid Glass Blobs (iOS 26 Style Ambient Refractions) */}
+      {/* Dynamic Background Floating Liquid Glass Blobs */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden select-none">
-        <div className="absolute top-[20%] left-[15%] w-[45vw] h-[45vw] rounded-full bg-[#00D4FF]/[0.04] blur-[120px] animate-liquid-glow-1" />
-        <div className="absolute bottom-[25%] right-[10%] w-[50vw] h-[50vw] rounded-full bg-[#7B2FFF]/[0.04] blur-[150px] animate-liquid-glow-2" />
-        <div className="absolute top-[60%] left-[5%] w-[35vw] h-[35vw] rounded-full bg-[#00D4FF]/[0.03] blur-[130px] animate-liquid-glow-2" />
+        <div className="absolute top-[20%] left-[15%] w-[45vw] h-[45vw] rounded-full bg-[#0093B5]/[0.04] blur-[120px] animate-liquid-glow-1" />
+        <div className="absolute bottom-[25%] right-[10%] w-[50vw] h-[50vw] rounded-full bg-[#6B22EE]/[0.04] blur-[150px] animate-liquid-glow-2" />
+        <div className="absolute top-[60%] left-[5%] w-[35vw] h-[35vw] rounded-full bg-[#0093B5]/[0.03] blur-[130px] animate-liquid-glow-2" />
       </div>
+
+      {/* Scroll-driven PCB Circuit Background */}
+      <CircuitBackground />
 
       {/* 1. Main Content Layout */}
       <div className={`relative z-10 ${isDeclined ? "pointer-events-none select-none blur-sm" : ""}`}>
