@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // Trace colour & via colour (dimmed teal)
 const TC = "rgba(0, 108, 140, 0.38)";
@@ -101,6 +101,20 @@ const VIAS: [number, number, number][] = [
 
 export default function CircuitBackground() {
   const svgRef = useRef<SVGSVGElement>(null);
+  const [preserveRatio, setPreserveRatio] = useState("xMidYMid slice");
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 768) {
+        setPreserveRatio("xMidYMid meet");
+      } else {
+        setPreserveRatio("xMidYMid slice");
+      }
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     const svg = svgRef.current;
@@ -165,7 +179,7 @@ export default function CircuitBackground() {
       className="fixed inset-0 w-full h-full pointer-events-none select-none"
       style={{ zIndex: 2 }}
       viewBox="0 0 1440 900"
-      preserveAspectRatio="xMidYMid slice"
+      preserveAspectRatio={preserveRatio}
       aria-hidden="true"
     >
       <defs>
