@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import {
   Inbox,
   Search,
-  User,
   Mail,
   Phone,
   Calendar,
@@ -41,19 +40,6 @@ export default function AdminDashboard() {
   const [authError, setAuthError] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
-  // Check persisted credentials on mount
-  useEffect(() => {
-    const savedUser = localStorage.getItem("admin_user");
-    const savedPass = localStorage.getItem("admin_pass");
-
-    if (savedUser && savedPass) {
-      verifyAndLoad(savedUser, savedPass);
-    } else {
-      setIsLoggedIn(false);
-      setLoading(false);
-    }
-  }, []);
-
   async function verifyAndLoad(username: string, pass: string) {
     setLoading(true);
     try {
@@ -88,6 +74,21 @@ export default function AdminDashboard() {
     }
   }
 
+  // Check persisted credentials on mount
+  useEffect(() => {
+    const savedUser = localStorage.getItem("admin_user");
+    const savedPass = localStorage.getItem("admin_pass");
+
+    Promise.resolve().then(() => {
+      if (savedUser && savedPass) {
+        verifyAndLoad(savedUser, savedPass);
+      } else {
+        setIsLoggedIn(false);
+        setLoading(false);
+      }
+    });
+  }, []);
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!inputUsername || !inputPassword) return;
@@ -118,6 +119,7 @@ export default function AdminDashboard() {
         setAuthError("Database authentication offline.");
       }
     } catch (err) {
+      console.error(err);
       setAuthError("Network error authenticating session.");
     } finally {
       setSubmitting(false);

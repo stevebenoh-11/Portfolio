@@ -82,6 +82,7 @@ export default function Home() {
       {/* 2. Interactive Legal Compliance Modal */}
       {legalTab && (
         <LegalModal
+          key={legalTab}
           initialTab={legalTab}
           onAccept={handleAccept}
           onDecline={handleDecline}

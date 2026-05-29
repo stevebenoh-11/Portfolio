@@ -1,8 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 
-// Trace colour & via colour (dimmed teal)
-const TC = "rgba(0, 108, 140, 0.38)";
+// Via colour (dimmed teal)
 const VC = "rgba(0, 148, 185, 0.80)";
 
 // [path_d, startAt, endAt]  — scroll progress thresholds 0→1

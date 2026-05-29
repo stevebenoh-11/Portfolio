@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Shield, FileText, Check, AlertTriangle, ExternalLink } from "lucide-react";
+import { Shield, FileText, Check, AlertTriangle } from "lucide-react";
 
 interface LegalModalProps {
   initialTab: "privacy" | "terms";
@@ -11,11 +11,6 @@ interface LegalModalProps {
 
 export default function LegalModal({ initialTab, onAccept, onDecline }: LegalModalProps) {
   const [activeTab, setActiveTab] = useState<"privacy" | "terms">(initialTab);
-
-  // Sync state if initialTab changes
-  useEffect(() => {
-    setActiveTab(initialTab);
-  }, [initialTab]);
 
   // Trap scroll on body when modal is open
   useEffect(() => {
@@ -129,8 +124,7 @@ export default function LegalModal({ initialTab, onAccept, onDecline }: LegalMod
                   We value performance and security. This portfolio strictly avoids third-party advertising, marketing, or trackers. 
                   However, we utilize standard HTML5 local caching (<strong className="text-white">localStorage</strong>) exclusively 
                   to preserve administrative authentication sessions. If an authorized administrator accesses the secured database GUI 
-                  portal (`/admin`), credentials are encrypted and stored in local cache so they stay logged in during their active session. 
-                  These sessions are completely destroyed upon clicking "Lock DB" (logout).
+                  portal (`/admin`), credentials are encrypted and stored in local cache so they stay logged in during their active session.                   These sessions are completely destroyed upon clicking &quot;Lock DB&quot; (logout).
                 </p>
               </div>
 
