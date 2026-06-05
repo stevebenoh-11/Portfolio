@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
 
-// ─── Send Email Notification via Resend ───────────────────────────────────────
+// ─── Send Email Notification via Gmail SMTP (Nodemailer) ─────────────────────
 async function sendEmailNotification(data: {
   name: string;
   email: string;
@@ -10,12 +10,21 @@ async function sendEmailNotification(data: {
   subject: string;
   message: string;
 }) {
-  if (!process.env.RESEND_API_KEY) {
-    console.warn("[Email] RESEND_API_KEY not set — skipping email.");
+  const gmailUser = process.env.GMAIL_USER;
+  const gmailPass = process.env.GMAIL_APP_PASSWORD;
+
+  if (!gmailUser || !gmailPass) {
+    console.warn("[Email] GMAIL_USER or GMAIL_APP_PASSWORD not set — skipping email.");
     return;
   }
 
-  const resend = new Resend(process.env.RESEND_API_KEY);
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: gmailUser,
+      pass: gmailPass,
+    },
+  });
 
   const htmlBody = `
     <!DOCTYPE html>
@@ -74,19 +83,15 @@ async function sendEmailNotification(data: {
     </html>
   `;
 
-  const { error } = await resend.emails.send({
-    from: "Portfolio Contact <onboarding@resend.dev>",
-    to: ["stevebenoh@gmail.com"],
+  await transporter.sendMail({
+    from: `"Portfolio Contact" <${gmailUser}>`,
+    to: "stevebenoh@gmail.com",
     replyTo: data.email,
     subject: `📬 New Message: ${data.subject || "Portfolio Contact"} — from ${data.name}`,
     html: htmlBody,
   });
 
-  if (error) {
-    console.error("[Email] Resend error:", error);
-  } else {
-    console.log("[Email] Notification sent to stevebenoh@gmail.com");
-  }
+  console.log("[Email] Notification sent to stevebenoh@gmail.com via Gmail SMTP");
 }
 
 // ─── GET — Admin fetch all submissions ───────────────────────────────────────
@@ -131,7 +136,7 @@ export async function POST(request: Request) {
       },
     });
 
-    // 2. Send email notification (non-blocking)
+    // 2. Send email notification (non-blocking — DB save is the source of truth)
     sendEmailNotification({ name, email, phone: phone || "Not Provided", subject, message }).catch(
       (err) => console.error("[Email] Failed:", err)
     );
@@ -142,3 +147,4 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
+
