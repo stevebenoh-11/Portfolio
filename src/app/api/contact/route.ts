@@ -100,7 +100,7 @@ export async function GET(request: Request) {
     const username = request.headers.get("x-admin-username");
     const password = request.headers.get("x-admin-password");
 
-    if (username !== "steve36" || password !== "9252825") {
+    if (username !== "Steve-3643" || password !== "3643147") {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
