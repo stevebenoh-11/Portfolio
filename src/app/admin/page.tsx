@@ -61,10 +61,11 @@ export default function AdminDashboard() {
         setIsLoggedIn(true);
         setAuthError("");
       } else {
-        // Credentials invalid or expired
-        setIsLoggedIn(false);
+        const body = await res.json().catch(() => ({}));
         localStorage.removeItem("admin_user");
         localStorage.removeItem("admin_pass");
+        setIsLoggedIn(false);
+        if (body.detail) setAuthError(`DB Error: ${body.detail}`);
       }
     } catch (err) {
       console.error(err);
@@ -116,7 +117,8 @@ export default function AdminDashboard() {
       } else if (res.status === 401) {
         setAuthError("Access Denied: Invalid username or password.");
       } else {
-        setAuthError("Database authentication offline.");
+        const body = await res.json().catch(() => ({}));
+        setAuthError(body.detail ? `DB Error: ${body.detail}` : "Database authentication offline.");
       }
     } catch (err) {
       console.error(err);

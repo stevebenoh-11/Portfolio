@@ -110,8 +110,9 @@ export async function GET(request: Request) {
 
     return NextResponse.json(submissions);
   } catch (error) {
-    console.error("Fetch DB Error:", error);
-    return NextResponse.json({ error: "Failed to fetch submissions" }, { status: 500 });
+    const detail = error instanceof Error ? error.message : String(error);
+    console.error("Fetch DB Error:", detail);
+    return NextResponse.json({ error: "Failed to fetch submissions", detail }, { status: 500 });
   }
 }
 
@@ -143,8 +144,9 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ success: true, submission: newSubmission });
   } catch (error) {
-    console.error("API POST Error:", error);
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    const detail = error instanceof Error ? error.message : String(error);
+    console.error("API POST Error:", detail);
+    return NextResponse.json({ error: "Internal Server Error", detail }, { status: 500 });
   }
 }
 
