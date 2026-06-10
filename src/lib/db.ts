@@ -4,8 +4,9 @@ declare global {
   var prisma: PrismaClient | undefined;
 }
 
-export const db = globalThis.prisma || new PrismaClient();
+// Always reuse a single client per process — every PrismaClient opens its own
+// connection pool, and spawning extras under load exhausts the database's
+// connection slots.
+export const db = globalThis.prisma ?? new PrismaClient();
 
-if (process.env.NODE_ENV !== "production") {
-  globalThis.prisma = db;
-}
+globalThis.prisma = db;

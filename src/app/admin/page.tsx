@@ -40,15 +40,12 @@ export default function AdminDashboard() {
   const [authError, setAuthError] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
-  async function verifyAndLoad(username: string, pass: string) {
+  // The session lives in an httpOnly cookie set by /api/admin/login —
+  // credentials are never stored in the browser.
+  async function loadSubmissions(): Promise<boolean> {
     setLoading(true);
     try {
-      const res = await fetch("/api/contact", {
-        headers: {
-          "x-admin-username": username,
-          "x-admin-password": pass,
-        },
-      });
+      const res = await fetch("/api/contact");
 
       if (res.ok) {
         const data = await res.json();
@@ -56,38 +53,28 @@ export default function AdminDashboard() {
         if (data.length > 0) {
           setSelectedSubmission(data[0]);
         }
-        localStorage.setItem("admin_user", username);
-        localStorage.setItem("admin_pass", pass);
         setIsLoggedIn(true);
         setAuthError("");
-      } else {
-        const body = await res.json().catch(() => ({}));
-        localStorage.removeItem("admin_user");
-        localStorage.removeItem("admin_pass");
-        setIsLoggedIn(false);
-        if (body.detail) setAuthError(`DB Error: ${body.detail}`);
+        return true;
       }
+      setIsLoggedIn(false);
+      if (res.status !== 401) {
+        setAuthError("Database authentication offline.");
+      }
+      return false;
     } catch (err) {
       console.error(err);
+      setIsLoggedIn(false);
       setAuthError("Failed to synchronize with the secure database.");
+      return false;
     } finally {
       setLoading(false);
     }
   }
 
-  // Check persisted credentials on mount
+  // Check for an existing session cookie on mount
   useEffect(() => {
-    const savedUser = localStorage.getItem("admin_user");
-    const savedPass = localStorage.getItem("admin_pass");
-
-    Promise.resolve().then(() => {
-      if (savedUser && savedPass) {
-        verifyAndLoad(savedUser, savedPass);
-      } else {
-        setIsLoggedIn(false);
-        setLoading(false);
-      }
-    });
+    Promise.resolve().then(() => loadSubmissions());
   }, []);
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -98,27 +85,20 @@ export default function AdminDashboard() {
     setAuthError("");
 
     try {
-      const res = await fetch("/api/contact", {
-        headers: {
-          "x-admin-username": inputUsername,
-          "x-admin-password": inputPassword,
-        },
+      const res = await fetch("/api/admin/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username: inputUsername, password: inputPassword }),
       });
 
       if (res.ok) {
-        const data = await res.json();
-        setSubmissions(data);
-        if (data.length > 0) {
-          setSelectedSubmission(data[0]);
-        }
-        localStorage.setItem("admin_user", inputUsername);
-        localStorage.setItem("admin_pass", inputPassword);
-        setIsLoggedIn(true);
+        await loadSubmissions();
       } else if (res.status === 401) {
         setAuthError("Access Denied: Invalid username or password.");
+      } else if (res.status === 429) {
+        setAuthError("Too many login attempts. Please wait and try again.");
       } else {
-        const body = await res.json().catch(() => ({}));
-        setAuthError(body.detail ? `DB Error: ${body.detail}` : "Database authentication offline.");
+        setAuthError("Database authentication offline.");
       }
     } catch (err) {
       console.error(err);
@@ -128,9 +108,12 @@ export default function AdminDashboard() {
     }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("admin_user");
-    localStorage.removeItem("admin_pass");
+  const handleLogout = async () => {
+    try {
+      await fetch("/api/admin/login", { method: "DELETE" });
+    } catch (err) {
+      console.error(err);
+    }
     setIsLoggedIn(false);
     setSubmissions([]);
     setSelectedSubmission(null);

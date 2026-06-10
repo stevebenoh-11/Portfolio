@@ -14,6 +14,7 @@ export default function CTA() {
     phone: "",
     subject: "",
     message: "",
+    company: "", // honeypot — hidden from humans, bots that fill it get silently dropped
   });
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
@@ -40,6 +41,7 @@ export default function CTA() {
           phone: formData.phone,
           subject: formData.subject,
           message: formData.message,
+          company: formData.company,
         }),
       });
 
@@ -53,6 +55,7 @@ export default function CTA() {
           phone: "",
           subject: "",
           message: "",
+          company: "",
         });
       } else {
         setStatus("error");
@@ -134,6 +137,17 @@ export default function CTA() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
+                {/* Honeypot field — visually hidden, real visitors never see or fill it */}
+                <input
+                  type="text"
+                  name="company"
+                  value={formData.company}
+                  onChange={handleChange}
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  className="absolute -left-[9999px] top-auto h-px w-px overflow-hidden"
+                />
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <input
                     type="text"

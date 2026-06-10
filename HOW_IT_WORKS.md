@@ -85,10 +85,21 @@ portfolio-app/
 
 ### B. Admin Dashboard Flow
 1. **Navigation**: Accessing the route `/admin` renders `src/app/admin/page.tsx`.
-2. **Querying Database**: The dashboard requests the list of all submissions.
-3. **Submissions Listing**:
+2. **Login**: Credentials are checked by `POST /api/admin/login` against the `ADMIN_USERNAME` / `ADMIN_PASSWORD` environment variables (timing-safe comparison, max 5 attempts per 15 minutes per IP). On success the server sets an **httpOnly, sameSite=strict session cookie** signed with HMAC — credentials are never stored in the browser.
+3. **Querying Database**: The dashboard requests the submissions list from `GET /api/contact`, which requires a valid session cookie (most recent 500 entries).
+4. **Submissions Listing**:
    * Displays all inquiries dynamically in a list.
    * Includes client search filters, sorting, and full detail views for reading incoming messages.
+5. **Logout**: `DELETE /api/admin/login` clears the session cookie. Sessions expire after 8 hours, and changing the admin password invalidates all existing sessions.
+
+### C. Security & Resilience Measures
+* **Rate limiting**: contact-form submissions and admin login attempts are limited per IP (sliding window) to block spam floods and brute-force attacks (`src/lib/rateLimit.ts`).
+* **Input validation**: every contact field is type-checked, trimmed, and length-capped server-side (name ≤ 100, email ≤ 254 + format check, phone ≤ 30, subject ≤ 150, message ≤ 5000); request bodies over 10 KB are rejected.
+* **Honeypot anti-spam**: the form carries a hidden `company` field — submissions from bots that fill it are silently discarded.
+* **No error leakage**: database/internal error details are logged server-side only; clients receive generic messages.
+* **Webhook timeout**: the n8n call aborts after 10 seconds so a hung webhook cannot pile up open connections under load.
+* **Security headers** (`next.config.ts`): Content-Security-Policy, Strict-Transport-Security, X-Frame-Options DENY, X-Content-Type-Options, Referrer-Policy, Permissions-Policy.
+* **Single Prisma client** (`src/lib/db.ts`) reused per process so concurrent traffic cannot exhaust database connection slots (Supabase connection pooling via pgbouncer handles the rest).
 
 ---
 
@@ -111,4 +122,13 @@ DIRECT_URL="postgresql://..."
 
 # n8n Webhook URL (Production path, no quotes, no trailing spaces)
 N8N_WEBHOOK_URL=https://yourname.app.n8n.cloud/webhook/your-path
+
+# Admin dashboard credentials (required — admin access is disabled without them)
+ADMIN_USERNAME=your-admin-username
+ADMIN_PASSWORD=a-long-unique-password
+
+# Optional: explicit secret for signing admin session cookies.
+# If omitted, a secret is derived from the credentials (so changing the
+# password also logs out all sessions).
+ADMIN_SESSION_SECRET=any-long-random-string
 ```
