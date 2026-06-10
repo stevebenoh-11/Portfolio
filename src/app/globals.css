@@ -1,263 +1,67 @@
 @import "tailwindcss";
 
-@theme inline {
-  /* ── Core Palette: Midnight Navy × Dimmed Teal ──────────────── */
-  --color-background: #060B18;
-  --color-foreground: #E8F0FE;
-  --color-primary: #0093B5;          /* was #00D4FF — ~45% dimmer  */
-  --color-primary-hover: #00AECF;    /* was #33DDFF — dimmed        */
-  --color-secondary: #6B22EE;
-  --color-surface: #0D1628;
-  --color-surface-alt: #111E35;
-  --color-border: #1A2D4A;
-  --color-border-hover: rgba(0, 147, 181, 0.22);
-  --color-muted: #8BA4C8;
-  --color-caption: #3D5070;
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ════════════════════════════════════════════════════════════════
+   EXECUTIVE EDITION — midnight navy · gold · ivory
+   Alternating dark/light bands, serif display type, gold accents.
+   ════════════════════════════════════════════════════════════════ */
+
+@theme {
+  /* ── Light canvas ────────────────────────────────────────────── */
+  --color-background: #FFFFFF;       /* white band                  */
+  --color-foreground: #12151C;       /* near-black text             */
+  --color-surface: #F6F5F1;          /* ivory-grey band             */
+  --color-surface-alt: #EDECE6;      /* pressed ivory               */
+  --color-border: #E4E2DA;           /* hairline on light           */
+  --color-border-hover: #12151C;
+  --color-muted: #555B66;            /* body grey                   */
+  --color-caption: #8A8F99;          /* annotation grey             */
+
+  /* ── Dark bands ──────────────────────────────────────────────── */
+  --color-dark: #070B13;             /* midnight navy band          */
+  --color-dark-soft: #0D1422;        /* raised panel on dark        */
+
+  /* ── Accents ─────────────────────────────────────────────────── */
+  --color-primary: #D4A237;          /* gold                        */
+  --color-primary-hover: #BD8D26;    /* deep gold                   */
+  --color-secondary: #2F6B4F;        /* success green               */
 }
 
-/* Smooth scroll */
+@theme inline {
+  --font-sans: var(--font-lato);
+  --font-mono: var(--font-plex-mono);
+  --font-display: var(--font-playfair);
+}
+
+/* ── Dark scheme (admin console) ────────────────────────────────── */
+.scheme-dark {
+  --color-background: #070B13;
+  --color-foreground: #F5F4EF;
+  --color-surface: #0D1320;
+  --color-surface-alt: #131A2A;
+  --color-border: #1E2738;
+  --color-border-hover: #F5F4EF;
+  --color-muted: #9AA1AE;
+  --color-caption: #5E6573;
+  --color-primary: #D4A237;
+  --color-primary-hover: #E0B254;
+}
+
+/* ── Base ───────────────────────────────────────────────────────── */
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
-  background-color: #060B18;
-  color: #E8F0FE;
-  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans), Georgia, system-ui, sans-serif;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* ── Film-grain noise overlay ───────────────────────────────── */
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 9999;
-  opacity: 0.022;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-size: 256px 256px;
-}
-
-/* ── Scrollbar ──────────────────────────────────────────────── */
-::-webkit-scrollbar {
-  width: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: #060B18;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #1A2D4A;
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #0093B5;
-}
-
-/* ── Text selection ─────────────────────────────────────────── */
-::selection {
-  background: rgba(0, 147, 181, 0.22);
-  color: #E8F0FE;
-}
-
-/* ── Glassmorphism Nav ──────────────────────────────────────── */
-.glass-nav {
-  background: rgba(6, 11, 24, 0.80);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-bottom: 1px solid rgba(0, 147, 181, 0.06);
-}
-
-/* ── Liquid Glass Panels ────────────────────────────────────── */
-.liquid-glass {
-  background: rgba(13, 22, 40, 0.5) !important;
-  backdrop-filter: blur(24px) saturate(160%) !important;
-  -webkit-backdrop-filter: blur(24px) saturate(160%) !important;
-  border: 1px solid rgba(0, 147, 181, 0.09) !important;
-  box-shadow:
-    inset 0 1px 1px rgba(0, 147, 181, 0.06),
-    inset 0 -1px 2px rgba(0, 0, 0, 0.4),
-    0 8px 32px rgba(0, 0, 0, 0.5),
-    0 1px 3px rgba(0, 0, 0, 0.3) !important;
-}
-
-/* ── Hover Lift ─────────────────────────────────────────────── */
-.liquid-glass-hover {
-  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
-}
-
-.liquid-glass-hover:hover {
-  transform: translateY(-6px) scale(1.015) !important;
-  background: rgba(17, 30, 53, 0.65) !important;
-  border-color: rgba(0, 147, 181, 0.28) !important;
-  box-shadow:
-    inset 0 1px 2px rgba(0, 147, 181, 0.12),
-    inset 0 -1px 2px rgba(0, 0, 0, 0.3),
-    0 20px 40px rgba(0, 147, 181, 0.06),
-    0 10px 20px rgba(0, 0, 0, 0.55) !important;
-}
-
-/* ── Shimmer Text ───────────────────────────────────────────── */
-.text-shimmer {
-  background: linear-gradient(
-    to right,
-    #E8F0FE 15%,
-    #0093B5 40%,
-    #6B22EE 60%,
-    #0093B5 75%,
-    #E8F0FE 90%
-  );
-  background-size: 200% auto;
-  color: transparent;
-  background-clip: text;
-  -webkit-background-clip: text;
-  animation: text-shimmer-anim 6s linear infinite;
-}
-
-@keyframes text-shimmer-anim {
-  to { background-position: 200% center; }
-}
-
-/* ── Ambient Blobs ──────────────────────────────────────────── */
-@keyframes liquid-drift-1 {
-  0%   { transform: translate(0px, 0px)    scale(1)    rotate(0deg);   }
-  50%  { transform: translate(60px, -80px) scale(1.25) rotate(180deg); }
-  100% { transform: translate(0px, 0px)    scale(1)    rotate(360deg); }
-}
-
-@keyframes liquid-drift-2 {
-  0%   { transform: translate(0px, 0px)    scale(1)   rotate(0deg);    }
-  50%  { transform: translate(-80px, 60px) scale(0.8) rotate(-180deg); }
-  100% { transform: translate(0px, 0px)    scale(1)   rotate(-360deg); }
-}
-
-.animate-liquid-glow-1 {
-  animation: liquid-drift-1 30s infinite alternate ease-in-out;
-}
-
-.animate-liquid-glow-2 {
-  animation: liquid-drift-2 35s infinite alternate-reverse ease-in-out;
-}
-
-/* ── Glow Button ────────────────────────────────────────────── */
-.glow-button {
-  box-shadow: 0 0 18px rgba(0, 147, 181, 0.22), 0 0 36px rgba(0, 147, 181, 0.08);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.glow-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 0 28px rgba(0, 147, 181, 0.38), 0 0 56px rgba(0, 147, 181, 0.15);
-}
-
-/* ── Hero radial glow ───────────────────────────────────────── */
-.hero-glow {
-  background: radial-gradient(ellipse 80% 60% at 50% 40%, #071525 0%, transparent 70%);
-}
-
-/* ── Active state ───────────────────────────────────────────── */
-button:active, a:active {
-  transform: scale(0.96) !important;
-}
-
-/* ════════════════════════════════════════════════════════════════
-   CIRCUIT BACKGROUND — scroll-driven drawing + complete glow
-   ════════════════════════════════════════════════════════════════ */
-
-/* Base: smooth colour transition so the complete-state glow fades in */
-/* Base: smooth transition so elements boot up seamlessly */
-.circuit-trace {
-  transition: stroke 0.8s cubic-bezier(0.4, 0, 0.2, 1), filter 0.8s ease;
-}
-
-.circuit-via {
-  transition: opacity 0.45s ease, fill 0.8s ease, stroke 0.8s ease, filter 0.8s ease;
-}
-
-.circuit-ic, .circuit-smd {
-  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.8s ease, fill 0.8s ease, filter 0.8s ease;
-}
-
-/* ── COMPLETE STATE: Ultra-enriched neon glow system ─────────── */
-svg.circuit-complete .circuit-trace {
-  stroke: #00e5ff !important;
-  filter: 
-    drop-shadow(0 0 2px rgba(0, 229, 255, 0.95)) 
-    drop-shadow(0 0 6px rgba(0, 229, 255, 0.65))
-    drop-shadow(0 0 12px rgba(0, 229, 255, 0.3)) !important;
-}
-
-svg.circuit-complete .circuit-via {
-  fill: #ffffff !important;
-  stroke: #00e5ff !important;
-  stroke-width: 1.5;
-  filter: 
-    drop-shadow(0 0 4px rgba(0, 229, 255, 1)) 
-    drop-shadow(0 0 10px rgba(0, 229, 255, 0.75))
-    drop-shadow(0 0 16px rgba(0, 229, 255, 0.4)) !important;
-  animation: via-pulse 1.6s ease-in-out infinite;
-}
-
-svg.circuit-complete .circuit-ic {
-  opacity: 0.95 !important;
-}
-
-svg.circuit-complete .circuit-ic rect {
-  stroke: #00e5ff !important;
-  fill: rgba(0, 147, 181, 0.12) !important;
-  filter: drop-shadow(0 0 5px rgba(0, 229, 255, 0.45));
-}
-
-svg.circuit-complete .circuit-ic text {
-  fill: #00e5ff !important;
-  filter: drop-shadow(0 0 1.5px rgba(0, 229, 255, 0.7));
-}
-
-svg.circuit-complete .circuit-ic line {
-  stroke: rgba(0, 229, 255, 0.8) !important;
-}
-
-svg.circuit-complete .circuit-smd {
-  opacity: 0.9 !important;
-  stroke: #00e5ff !important;
-  filter: drop-shadow(0 0 4px rgba(0, 229, 255, 0.4));
-}
-
-svg.circuit-complete .circuit-smd text {
-  fill: #00e5ff !important;
-  filter: drop-shadow(0 0 1px rgba(0, 229, 255, 0.6));
-}
-
-svg.circuit-complete .circuit-smd line {
-  stroke: #00e5ff !important;
-}
-
-@keyframes via-pulse {
-  0%, 100% {
-    opacity: 0.85;
-    filter: 
-      drop-shadow(0 0 3px rgba(0, 229, 255, 1)) 
-      drop-shadow(0 0 7px rgba(0, 229, 255, 0.6));
-  }
-  50% {
-    opacity: 1;
-    filter: 
-      drop-shadow(0 0 5px rgba(0, 229, 255, 1)) 
-      drop-shadow(0 0 13px rgba(0, 229, 255, 0.85))
-      drop-shadow(0 0 18px rgba(0, 229, 255, 0.4));
-  }
-}
-
-/* ── Mobile & Touch ─────────────────────────────────────────── */
 * {
   -webkit-tap-highlight-color: transparent;
   box-sizing: border-box;
@@ -268,55 +72,87 @@ img, video, svg, canvas {
   height: auto;
 }
 
-html {
-  -webkit-text-size-adjust: 100%;
-  text-size-adjust: 100%;
+/* ── Scrollbar ──────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 8px;
 }
 
-body {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+::-webkit-scrollbar-track {
+  background: #0D1422;
 }
 
-/* ── RESPONSIVE ADAPTATIONS & MOBILE GPU OPTIMIZATION ── */
-@media (max-width: 768px) {
-  /* Optimize heavy multi-layered drop shadows to prevent GPU redraw lag on mobile browsers */
-  svg.circuit-complete .circuit-trace {
-    filter: drop-shadow(0 0 2.5px rgba(0, 229, 255, 0.75)) !important;
-  }
+::-webkit-scrollbar-thumb {
+  background: #2A3346;
+  border-radius: 2px;
+}
 
-  svg.circuit-complete .circuit-via {
-    filter: drop-shadow(0 0 3.5px rgba(0, 229, 255, 0.85)) !important;
-    animation: via-pulse-mobile 1.6s ease-in-out infinite !important;
-  }
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
 
-  svg.circuit-complete .circuit-ic rect {
-    filter: drop-shadow(0 0 2.5px rgba(0, 229, 255, 0.35)) !important;
-  }
+/* ── Text selection ─────────────────────────────────────────────── */
+::selection {
+  background: var(--color-primary);
+  color: #070B13;
+}
 
-  svg.circuit-complete .circuit-smd {
-    filter: drop-shadow(0 0 2px rgba(0, 229, 255, 0.3)) !important;
-  }
+/* ── Gold rule (small accent line under headings) ───────────────── */
+.gold-rule {
+  width: 56px;
+  height: 2px;
+  background: var(--color-primary);
+}
 
-  /* PCB substrate dot grid slightly subtler on small screen sizes */
-  #pcb-grid circle {
-    r: 0.45;
-    fill: rgba(0, 100, 135, 0.07);
-  }
-  
-  /* Increase readability on mobile screens by reducing background opacity slightly */
-  svg.fixed.inset-0 {
-    opacity: 0.62;
+/* ── Elevated panels ────────────────────────────────────────────── */
+.shadow-press {
+  box-shadow: 0 24px 60px rgba(7, 11, 19, 0.14);
+}
+
+.shadow-press-sm {
+  box-shadow: 0 12px 32px rgba(7, 11, 19, 0.10);
+}
+
+/* ── Card hover lift ────────────────────────────────────────────── */
+.card-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(7, 11, 19, 0.12);
+}
+
+/* ── Fade in (modals / lockout) ─────────────────────────────────── */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.35s ease both;
+}
+
+/* ── Active press ───────────────────────────────────────────────── */
+button:active, a:active {
+  transform: translateY(1px);
+}
+
+/* ── Keyboard / remote / d-pad navigation (TVs, Steam Deck, consoles) ── */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* ── Reduced motion (accessibility setting on iOS/Android/desktop) ── */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }
 
-@keyframes via-pulse-mobile {
-  0%, 100% {
-    opacity: 0.85;
-    filter: drop-shadow(0 0 2.5px rgba(0, 229, 255, 0.8));
-  }
-  50% {
-    opacity: 1;
-    filter: drop-shadow(0 0 5px rgba(0, 229, 255, 0.95));
+/* ── Ultra-narrow screens (smartwatches, foldable cover displays) ── */
+@media (max-width: 339px) {
+  html {
+    font-size: 14px;
   }
 }

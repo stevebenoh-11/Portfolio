@@ -51,24 +51,16 @@ export default function Home() {
 
   return (
     <>
-      {/* Dynamic Background Floating Liquid Glass Blobs */}
-      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden select-none">
-        <div className="absolute top-[20%] left-[15%] w-[45vw] h-[45vw] rounded-full bg-[#0093B5]/[0.04] blur-[120px] animate-liquid-glow-1" />
-        <div className="absolute bottom-[25%] right-[10%] w-[50vw] h-[50vw] rounded-full bg-[#6B22EE]/[0.04] blur-[150px] animate-liquid-glow-2" />
-        <div className="absolute top-[60%] left-[5%] w-[35vw] h-[35vw] rounded-full bg-[#0093B5]/[0.03] blur-[130px] animate-liquid-glow-2" />
-      </div>
-
-      {/* Scroll-driven PCB Circuit Background */}
-      <CircuitBackground />
-
-      {/* 1. Main Content Layout */}
-      <div className={`relative z-10 ${isDeclined ? "pointer-events-none select-none blur-sm" : ""}`}>
+      {/* 1. Main Content Layout — alternating dark/light bands */}
+      <div className={`relative ${isDeclined ? "pointer-events-none select-none blur-sm" : ""}`}>
+        {/* Full-page circuit trace — runs from the very top to the footer */}
+        <CircuitBackground />
         <Navbar />
         <main className="flex-1">
           <Hero />
-          <TechStrip />
           <WhatIDo />
           <Capabilities />
+          <TechStrip />
           <Pricing />
           <FAQ />
           <CTA />
@@ -91,40 +83,37 @@ export default function Home() {
 
       {/* 3. Ultimate Inescapable Lockout Overlay (Fallback for Declined Terms) */}
       {isDeclined && (
-        <div className="fixed inset-0 z-[9999] bg-[#060B18] flex flex-col items-center justify-center p-6 text-center select-none animate-fade-in">
-          {/* Lockout Radial Background Glow */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-red-500/5 rounded-full blur-3xl pointer-events-none" />
-
+        <div className="fixed inset-0 z-[9999] bg-dark flex flex-col items-center justify-center p-6 text-center select-none animate-fade-in">
           {/* Alert Content Card */}
-          <div className="relative w-full max-w-lg bg-surface border border-red-500/20 p-8 md:p-10 rounded-2xl shadow-2xl flex flex-col items-center">
-            
-            {/* Warning Shield Hexagon / Glow */}
-            <div className="w-16 h-16 rounded-2xl bg-red-500/10 border border-red-500/25 flex items-center justify-center text-red-500 mb-6 animate-pulse">
-              <ShieldAlert size={32} />
+          <div className="relative w-full max-w-lg bg-background shadow-press rounded-xl p-8 md:p-10 flex flex-col items-center">
+
+            {/* Warning Stamp */}
+            <div className="w-16 h-16 border border-red-700/40 bg-red-700/5 rounded-lg flex items-center justify-center text-red-700 mb-6">
+              <ShieldAlert size={30} />
             </div>
 
-            <h1 className="text-2xl font-black text-white tracking-wider mb-3">
+            <h1 className="font-display text-2xl font-bold tracking-tight mb-3">
               ACCESS TERMINATED
             </h1>
-            
-            <p className="text-sm text-red-400/90 font-medium tracking-wide uppercase mb-6 px-4 py-1.5 bg-red-500/5 border border-red-500/10 rounded-full">
+
+            <p className="text-[11px] text-red-700 uppercase tracking-[0.25em] font-bold mb-6 px-4 py-1.5 border border-red-700/30 bg-red-700/5 rounded-md">
               Legal Consent Declined
             </p>
 
             <p className="text-sm text-muted leading-relaxed mb-8 max-w-sm">
-              Because you have declined the Privacy Policy & Terms of Service, we are legally prohibited from displaying our engineering works, mechanical models, and embedded code systems. This session has been terminated.
+              Because you have declined the Privacy Policy &amp; Terms of Service, we are legally prohibited from displaying our engineering works, mechanical models, and embedded code systems. This session has been terminated.
             </p>
 
             {/* Exit Commands */}
             <div className="w-full flex flex-col sm:flex-row gap-4 justify-center">
-              
+
               {/* Reset/Try again trigger */}
               <button
                 onClick={() => {
                   setIsDeclined(false);
                   setLegalTab("privacy");
                 }}
-                className="w-full sm:w-auto px-5 py-3 rounded-lg border border-border bg-surface hover:border-white/20 text-xs font-bold uppercase tracking-wider text-white transition-all inline-flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full sm:w-auto px-5 py-3 border border-foreground text-foreground rounded-md hover:bg-surface text-xs font-bold uppercase tracking-wider transition-colors inline-flex items-center justify-center gap-2 cursor-pointer"
               >
                 <RefreshCw size={12} />
                 Re-evaluate Terms
@@ -135,7 +124,7 @@ export default function Home() {
                 onClick={() => {
                   window.location.href = "https://google.com";
                 }}
-                className="w-full sm:w-auto px-6 py-3 bg-red-500 hover:bg-red-600 text-white rounded-lg text-xs font-bold uppercase tracking-wider transition-all inline-flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-red-500/20"
+                className="w-full sm:w-auto px-6 py-3 bg-red-700 hover:bg-red-800 text-white rounded-md text-xs font-bold uppercase tracking-wider transition-colors inline-flex items-center justify-center gap-2 cursor-pointer"
               >
                 <LogOut size={12} />
                 Exit Website

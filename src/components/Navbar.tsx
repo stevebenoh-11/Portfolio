@@ -9,6 +9,7 @@ const navLinks = [
   { label: "About", href: "#about" },
   { label: "Skills", href: "#work" },
   { label: "Projects", href: "#services" },
+  { label: "Faq", href: "#faq" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -24,31 +25,33 @@ export default function Navbar() {
   return (
     <>
       <motion.nav
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
+        initial={{ y: -80, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled ? "glass-nav border-b border-border" : "bg-transparent"
+          scrolled
+            ? "bg-dark/95 backdrop-blur-sm border-b border-white/10 shadow-lg shadow-black/20"
+            : "bg-transparent border-b border-transparent"
         }`}
       >
-        <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
-          {/* Logo */}
-          <a href="#home" className="flex items-center gap-3 group">
-            <div className="w-9 h-9 rounded-lg bg-primary flex items-center justify-center font-bold text-sm text-white transition-transform group-hover:scale-105">
-              SB
-            </div>
-            <span className="text-lg font-semibold tracking-tight text-white">
-              Steve Beno
+        <div className="mx-auto max-w-7xl px-5 sm:px-8 py-4 flex items-center justify-between">
+          {/* Wordmark */}
+          <a href="#home" className="flex flex-col leading-tight group">
+            <span className="font-display text-[22px] font-bold text-white tracking-tight">
+              Steve <span className="text-primary">Beno</span>
+            </span>
+            <span className="text-[9px] uppercase tracking-[0.35em] text-white/55 font-semibold">
+              ECE Student
             </span>
           </a>
 
           {/* Desktop Links */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-9">
             {navLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
-                className="text-sm text-muted hover:text-white transition-colors duration-200"
+                className="text-sm text-white/80 hover:text-primary pb-1 border-b-2 border-transparent hover:border-primary transition-all duration-200"
               >
                 {link.label}
               </a>
@@ -56,16 +59,16 @@ export default function Navbar() {
           </div>
 
           {/* Desktop CTAs */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden md:flex items-center gap-5">
             <a
               href="#"
-              className="px-4 py-2 text-xs font-bold uppercase tracking-wider text-white/90 border border-white/10 bg-white/4 backdrop-blur-md rounded-lg hover:text-white hover:border-white/20 hover:bg-white/8 transition-all duration-200 shadow-sm shadow-black/5"
+              className="text-sm text-white/65 hover:text-white transition-colors duration-200"
             >
               Resume
             </a>
             <a
               href="#contact"
-              className="px-4 py-2 text-sm font-medium text-white bg-primary rounded-lg hover:bg-primary-hover transition-all duration-200 glow-button"
+              className="px-5 py-2 text-sm font-semibold border border-primary text-primary rounded-md hover:bg-primary hover:text-dark transition-all duration-200"
             >
               Hire Me
             </a>
@@ -77,7 +80,7 @@ export default function Navbar() {
             className="md:hidden text-white p-2"
             aria-label="Toggle menu"
           >
-            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+            {mobileOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
       </motion.nav>
@@ -85,33 +88,33 @@ export default function Navbar() {
       {/* Mobile Menu */}
       {mobileOpen && (
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          className="fixed inset-0 z-40 bg-background/95 backdrop-blur-xl pt-24 px-6"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-40 bg-dark pt-28 px-6"
         >
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col border-t border-white/10">
             {navLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
                 onClick={() => setMobileOpen(false)}
-                className="text-2xl font-medium text-white hover:text-primary transition-colors"
+                className="py-4 border-b border-white/10 font-display text-2xl font-medium text-white hover:text-primary transition-colors"
               >
                 {link.label}
               </a>
             ))}
-            <div className="flex flex-col gap-3 mt-6">
+            <div className="flex flex-col gap-3 mt-8">
               <a
                 href="#"
-                className="px-6 py-3 text-center text-xs font-bold uppercase tracking-wider text-white/90 border border-white/10 bg-white/4 backdrop-blur-md rounded-lg hover:text-white hover:bg-white/8 transition-all duration-200 shadow-sm"
+                className="px-6 py-3.5 text-center text-sm font-semibold border border-white/30 text-white rounded-md hover:border-white transition-colors duration-200"
               >
                 Resume
               </a>
               <a
                 href="#contact"
                 onClick={() => setMobileOpen(false)}
-                className="px-6 py-3 text-center text-sm font-medium text-white bg-primary rounded-lg hover:bg-primary-hover transition-all glow-button"
+                className="px-6 py-3.5 text-center text-sm font-semibold bg-primary text-dark rounded-md hover:bg-primary-hover transition-colors duration-200"
               >
                 Hire Me
               </a>

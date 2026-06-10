@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import AnimatedSection from "./AnimatedSection";
 
@@ -38,21 +37,22 @@ function FAQItem({
   onToggle: () => void;
 }) {
   return (
-    <div className="border-b border-border">
+    <div className="border-b border-border last:border-b-0">
       <button
         onClick={onToggle}
-        className="w-full flex items-center justify-between py-5 text-left group"
+        className="w-full flex items-center justify-between gap-6 py-6 px-7 sm:px-9 text-left group cursor-pointer"
       >
-        <span className="text-base font-medium text-white group-hover:text-primary transition-colors pr-4">
+        <span className="font-display text-lg sm:text-xl font-bold tracking-tight group-hover:text-primary transition-colors">
           {faq.question}
         </span>
-        <motion.div
-          animate={{ rotate: isOpen ? 180 : 0 }}
-          transition={{ duration: 0.3 }}
-          className="shrink-0"
+        <motion.span
+          animate={{ rotate: isOpen ? 45 : 0 }}
+          transition={{ duration: 0.25 }}
+          className="shrink-0 text-2xl text-primary leading-none font-light"
+          aria-hidden="true"
         >
-          <ChevronDown size={20} className="text-muted" />
-        </motion.div>
+          +
+        </motion.span>
       </button>
       <AnimatePresence>
         {isOpen && (
@@ -63,7 +63,7 @@ function FAQItem({
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className="overflow-hidden"
           >
-            <p className="text-sm text-muted leading-relaxed pb-5">
+            <p className="text-sm sm:text-[15px] text-muted leading-relaxed pb-7 px-7 sm:px-9 max-w-3xl">
               {faq.answer}
             </p>
           </motion.div>
@@ -77,21 +77,22 @@ export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section className="py-16 sm:py-24 border-t border-border/50">
-      <div className="mx-auto max-w-3xl px-4 sm:px-6">
+    <section id="faq" className="bg-surface py-20 sm:py-28">
+      <div className="mx-auto max-w-4xl px-5 sm:px-8">
         <AnimatedSection>
           <div className="text-center mb-12">
-            <p className="text-sm text-primary font-medium uppercase tracking-widest mb-3">
+            <p className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.3em] text-primary mb-4">
               FAQ
             </p>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">
-              Frequently Asked
+            <h2 className="font-display text-3xl sm:text-4xl lg:text-[2.75rem] font-bold tracking-tight">
+              Frequently Asked.
             </h2>
+            <div className="gold-rule mx-auto mt-6" />
           </div>
         </AnimatedSection>
 
         <AnimatedSection delay={0.1}>
-          <div>
+          <div className="bg-background shadow-press-sm rounded-lg overflow-hidden">
             {faqs.map((faq, index) => (
               <FAQItem
                 key={index}

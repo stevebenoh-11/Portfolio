@@ -21,21 +21,18 @@ export default function LegalModal({ initialTab, onAccept, onDecline }: LegalMod
   }, []);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-background/90 backdrop-blur-md animate-fade-in">
-      {/* Glow effects around modal */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-[500px] bg-primary/5 rounded-full blur-3xl pointer-events-none" />
-
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-foreground/40 backdrop-blur-[2px] animate-fade-in">
       {/* Modal Container */}
-      <div className="relative w-full max-w-3xl bg-surface border border-border rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[85vh] md:max-h-[80vh]">
-        
+      <div className="relative w-full max-w-3xl bg-background border border-border shadow-press rounded-xl overflow-hidden flex flex-col max-h-[85vh] md:max-h-[80vh]">
+
         {/* Header Indicator */}
-        <div className="p-6 border-b border-border/80 bg-surface-alt flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="p-6 border-b border-border bg-surface flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
-              {activeTab === "privacy" ? <Shield size={20} /> : <FileText size={20} />}
+            <div className="w-10 h-10 border border-border rounded-md flex items-center justify-center text-primary">
+              {activeTab === "privacy" ? <Shield size={18} /> : <FileText size={18} />}
             </div>
             <div>
-              <h2 className="text-lg font-bold text-white tracking-wide">
+              <h2 className="font-display text-lg font-semibold tracking-tight text-foreground">
                 Legal & Compliance Center
               </h2>
               <p className="text-xs text-muted">
@@ -45,23 +42,23 @@ export default function LegalModal({ initialTab, onAccept, onDecline }: LegalMod
           </div>
 
           {/* Tabs */}
-          <div className="flex bg-background border border-border p-1 rounded-xl">
+          <div className="flex gap-5 border-b border-border md:border-b-0">
             <button
               onClick={() => setActiveTab("privacy")}
-              className={`px-4 py-2 rounded-lg text-xs font-semibold tracking-wider transition-all cursor-pointer ${
+              className={`pb-2 md:pb-1 text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer border-b-2 ${
                 activeTab === "privacy"
-                  ? "bg-surface text-white border border-border shadow-md"
-                  : "text-muted hover:text-white"
+                  ? "text-foreground border-primary"
+                  : "text-caption border-transparent hover:text-foreground"
               }`}
             >
               Privacy Policy
             </button>
             <button
               onClick={() => setActiveTab("terms")}
-              className={`px-4 py-2 rounded-lg text-xs font-semibold tracking-wider transition-all cursor-pointer ${
+              className={`pb-2 md:pb-1 text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer border-b-2 ${
                 activeTab === "terms"
-                  ? "bg-surface text-white border border-border shadow-md"
-                  : "text-muted hover:text-white"
+                  ? "text-foreground border-primary"
+                  : "text-caption border-transparent hover:text-foreground"
               }`}
             >
               Terms & Conditions
@@ -74,7 +71,7 @@ export default function LegalModal({ initialTab, onAccept, onDecline }: LegalMod
           {activeTab === "privacy" ? (
             <div className="space-y-6 animate-fade-in">
               <div>
-                <h3 className="text-base font-bold text-white mb-2">1. Overview & Scope</h3>
+                <h3 className="font-display text-base font-semibold text-foreground mb-2">1. Overview & Scope</h3>
                 <p>
                   Welcome to the personal engineering and portfolio website of <strong>Steve Beno H</strong>. 
                   We respect your visual privacy and are fully committed to protecting any details or communication 
@@ -84,7 +81,7 @@ export default function LegalModal({ initialTab, onAccept, onDecline }: LegalMod
               </div>
 
               <div>
-                <h3 className="text-base font-bold text-white mb-2">2. Contact Form & SQLite Database</h3>
+                <h3 className="font-display text-base font-semibold text-foreground mb-2">2. Contact Form & SQLite Database</h3>
                 <p>
                   When you voluntarily initiate a connection through our contact and inquiry panel, we record the following:
                 </p>
@@ -102,7 +99,7 @@ export default function LegalModal({ initialTab, onAccept, onDecline }: LegalMod
               </div>
 
               <div>
-                <h3 className="text-base font-bold text-white mb-2">3. API & Communication Routing</h3>
+                <h3 className="font-display text-base font-semibold text-foreground mb-2">3. API & Communication Routing</h3>
                 <p>
                   To ensure Steve is immediately updated when a potential collaborator reaches out, we implement API routing:
                 </p>
@@ -113,27 +110,27 @@ export default function LegalModal({ initialTab, onAccept, onDecline }: LegalMod
                   </li>
                   <li>
                     This automatically dispatches a secure email copy of your message to our official, monitored 
-                    inbox: <strong className="text-white">stevebenoh@gmail.com</strong>.
+                    inbox: <strong className="text-foreground">stevebenoh@gmail.com</strong>.
                   </li>
                 </ul>
               </div>
 
               <div>
-                <h3 className="text-base font-bold text-white mb-2">4. Admin Caching & Local Storage</h3>
+                <h3 className="font-display text-base font-semibold text-foreground mb-2">4. Admin Caching & Local Storage</h3>
                 <p>
                   We value performance and security. This portfolio strictly avoids third-party advertising, marketing, or trackers. 
-                  However, we utilize standard HTML5 local caching (<strong className="text-white">localStorage</strong>) exclusively 
+                  However, we utilize standard HTML5 local caching (<strong className="text-foreground">localStorage</strong>) exclusively 
                   to preserve administrative authentication sessions. If an authorized administrator accesses the secured database GUI 
                   portal (`/admin`), credentials are encrypted and stored in local cache so they stay logged in during their active session.                   These sessions are completely destroyed upon clicking &quot;Lock DB&quot; (logout).
                 </p>
               </div>
 
               <div>
-                <h3 className="text-base font-bold text-white mb-2">5. Data Deletion and Security</h3>
+                <h3 className="font-display text-base font-semibold text-foreground mb-2">5. Data Deletion and Security</h3>
                 <p>
                   We store communications indefinitely for project records and archive purposes. If you wish to have your 
                   submitted records completely purged from the local SQLite database, you may send a delete command or contact 
-                  us directly at <strong className="text-white">stevebenoh@gmail.com</strong>. We will process your removal 
+                  us directly at <strong className="text-foreground">stevebenoh@gmail.com</strong>. We will process your removal 
                   request within 48 hours.
                 </p>
               </div>
@@ -141,7 +138,7 @@ export default function LegalModal({ initialTab, onAccept, onDecline }: LegalMod
           ) : (
             <div className="space-y-6 animate-fade-in">
               <div>
-                <h3 className="text-base font-bold text-white mb-2">1. Terms of Service Agreement</h3>
+                <h3 className="font-display text-base font-semibold text-foreground mb-2">1. Terms of Service Agreement</h3>
                 <p>
                   By accessing, browsing, or utilizing the services on this web portfolio, you explicitly agree to comply with 
                   and be legally bound by these Terms and Conditions. If you do not understand or do not accept these terms, 
@@ -150,7 +147,7 @@ export default function LegalModal({ initialTab, onAccept, onDecline }: LegalMod
               </div>
 
               <div>
-                <h3 className="text-base font-bold text-white mb-2">2. Intellectual Property Rights</h3>
+                <h3 className="font-display text-base font-semibold text-foreground mb-2">2. Intellectual Property Rights</h3>
                 <p>
                   All digital assets, materials, designs, and work shown on this portfolio are the sole, exclusive intellectual 
                   property of <strong>Steve Beno H</strong> unless explicitly cited otherwise. This encompasses:
@@ -169,7 +166,7 @@ export default function LegalModal({ initialTab, onAccept, onDecline }: LegalMod
               </div>
 
               <div>
-                <h3 className="text-base font-bold text-white mb-2">3. Acceptable Use Policy</h3>
+                <h3 className="font-display text-base font-semibold text-foreground mb-2">3. Acceptable Use Policy</h3>
                 <p>
                   You agree to browse this website in a professional manner. You are strictly prohibited from:
                 </p>
@@ -181,17 +178,17 @@ export default function LegalModal({ initialTab, onAccept, onDecline }: LegalMod
               </div>
 
               <div>
-                <h3 className="text-base font-bold text-white mb-2">4. Disclaimers & Limitation of Liability</h3>
+                <h3 className="font-display text-base font-semibold text-foreground mb-2">4. Disclaimers & Limitation of Liability</h3>
                 <p>
                   The information and assets on this portfolio are published solely for demonstrative, academic, and professional review 
-                  purposes. All electrical designs and software implementations are provided <strong className="text-white">&quot;as is&quot;</strong> 
+                  purposes. All electrical designs and software implementations are provided <strong className="text-foreground">&quot;as is&quot;</strong> 
                   without guarantees of functional accuracy. Steve Beno H is not liable for any physical or digital damages resulting 
                   from compiling our code, executing designs, or relying on details displayed here.
                 </p>
               </div>
 
               <div>
-                <h3 className="text-base font-bold text-white mb-2">5. Force Termination</h3>
+                <h3 className="font-display text-base font-semibold text-foreground mb-2">5. Force Termination</h3>
                 <p>
                   Declining these terms indicates you do not authorize our standard operational processes (such as storing database submissions 
                   or local caching). Consequently, your access to this portfolio will be fully revoked.
@@ -202,7 +199,7 @@ export default function LegalModal({ initialTab, onAccept, onDecline }: LegalMod
         </div>
 
         {/* Warning Indicator */}
-        <div className="px-6 py-3 border-t border-b border-border/40 bg-surface-alt/40 flex items-start gap-2.5">
+        <div className="px-6 py-3 border-t border-border bg-surface-alt/50 flex items-start gap-2.5">
           <AlertTriangle size={15} className="text-primary mt-0.5 shrink-0" />
           <p className="text-[11px] text-muted leading-snug">
             Accepting these terms validates your consent for us to store and process form submissions in SQLite and cache admin credentials locally. 
@@ -211,17 +208,17 @@ export default function LegalModal({ initialTab, onAccept, onDecline }: LegalMod
         </div>
 
         {/* Footer Actions */}
-        <div className="p-6 bg-surface-alt border-t border-border flex flex-col sm:flex-row items-center justify-end gap-3">
+        <div className="p-6 bg-surface border-t border-border flex flex-col sm:flex-row items-center justify-end gap-3">
           <button
             onClick={onDecline}
-            className="w-full sm:w-auto px-5 py-2.5 rounded-lg border border-red-500/20 bg-red-500/5 text-red-400 hover:bg-red-500/10 hover:border-red-500/30 text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer"
+            className="w-full sm:w-auto px-5 py-3 border border-red-700/40 bg-red-700/5 text-red-700 rounded-md hover:bg-red-700/10 text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer"
           >
             I Don&apos;t Understand / Decline
           </button>
-          
+
           <button
             onClick={onAccept}
-            className="w-full sm:w-auto px-6 py-2.5 bg-primary hover:bg-primary-hover text-white rounded-lg text-xs font-bold uppercase tracking-wider transition-all glow-button inline-flex items-center justify-center gap-2 cursor-pointer"
+            className="w-full sm:w-auto px-6 py-3 bg-primary hover:bg-primary-hover text-dark rounded-md text-xs font-bold uppercase tracking-wider transition-colors inline-flex items-center justify-center gap-2 cursor-pointer"
           >
             <Check size={14} />
             I Understand & Accept

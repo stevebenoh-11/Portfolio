@@ -47,6 +47,7 @@ const navigateLinks = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
   { label: "Projects", href: "#services" },
+  { label: "FAQ", href: "#faq" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -58,87 +59,88 @@ export default function Footer({
   onOpenTerms?: () => void;
 }) {
   return (
-    <footer className="border-t border-border/50 pt-12 sm:pt-20 pb-8 sm:pb-10">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 flex flex-col items-center">
-        {/* Logo and Intro */}
-        <div className="flex flex-col items-center text-center mb-8">
-          <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center font-bold text-lg text-white mb-4 shadow-lg shadow-primary/20">
-            SB
+    <footer className="bg-[#04070D] text-white border-t border-white/10">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8 pt-14 pb-8">
+        {/* Top row — identity / nav / socials */}
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-10 pb-10 border-b border-white/10">
+          {/* Wordmark */}
+          <div className="max-w-sm">
+            <p className="font-display text-2xl font-bold tracking-tight mb-1">
+              Steve <span className="text-primary">Beno H</span>
+            </p>
+            <p className="text-[9px] uppercase tracking-[0.35em] text-white/50 font-semibold mb-4">
+              ECE Student
+            </p>
+            <p className="text-sm text-white/55 leading-relaxed">
+              1st Year ECE student exploring the intersection of electronics, code,
+              game development, and engineering.
+            </p>
           </div>
-          <h3 className="text-xl font-bold text-white tracking-wide mb-2">
-            Steve Beno H
-          </h3>
-          <p className="text-sm text-muted max-w-md leading-relaxed">
-            1st Year ECE student exploring the intersection of electronics, code,
-            game development, and engineering.
-          </p>
+
+          {/* Navigation */}
+          <nav className="flex flex-wrap items-center gap-x-8 gap-y-3">
+            {navigateLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                className="text-sm text-white/60 hover:text-primary transition-colors duration-200"
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
+
+          {/* Socials */}
+          <div className="flex items-center gap-3">
+            {socialLinks.map((social) => (
+              <a
+                key={social.label}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={social.label}
+                className="w-10 h-10 border border-white/15 rounded-md flex items-center justify-center text-white/55 hover:text-primary hover:border-primary transition-colors duration-200"
+              >
+                <social.icon size={16} />
+              </a>
+            ))}
+          </div>
         </div>
 
-        {/* Quick Navigation links in a row */}
-        <nav className="flex flex-wrap items-center justify-center gap-6 sm:gap-8 mb-8">
-          {navigateLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className="text-sm text-muted hover:text-white transition-colors duration-200"
-            >
-              {link.label}
-            </a>
-          ))}
-        </nav>
-
-        {/* Contact Strips in a row */}
-        <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-4 sm:gap-6 text-sm text-muted mb-8 border-t border-b border-border/30 py-4 w-full max-w-2xl justify-center">
+        {/* Contact strip */}
+        <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-x-10 gap-y-3 py-7 text-sm text-white/55">
           <a
             href="mailto:stevebenoh@gmail.com"
-            className="flex items-center gap-2 hover:text-white transition-colors"
+            className="flex items-center gap-2 hover:text-primary transition-colors break-all"
           >
-            <Mail size={14} className="text-primary" />
+            <Mail size={14} className="text-primary shrink-0" />
             stevebenoh@gmail.com
           </a>
-          <span className="hidden sm:inline text-caption/40">|</span>
           <a
             href="tel:+916385636432"
-            className="flex items-center gap-2 hover:text-white transition-colors"
+            className="flex items-center gap-2 hover:text-primary transition-colors"
           >
             <Phone size={14} className="text-primary" />
             +91 6385636432
           </a>
-          <span className="hidden sm:inline text-caption/40">|</span>
           <div className="flex items-center gap-2 cursor-default">
             <MapPin size={14} className="text-primary" />
             Coimbatore, India 🎓
           </div>
         </div>
 
-        {/* Social Icon Strip */}
-        <div className="flex items-center justify-center gap-4 mb-12">
-          {socialLinks.map((social) => (
-            <a
-              key={social.label}
-              href={social.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={social.label}
-              className="w-10 h-10 rounded-xl border border-border bg-surface flex items-center justify-center text-caption hover:text-white hover:border-primary/40 hover:bg-surface-alt transition-all duration-200"
-            >
-              <social.icon size={18} />
-            </a>
-          ))}
-        </div>
-
         {/* Bottom Bar */}
-        <div className="w-full border-t border-border/40 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-caption">
+        <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-xs text-white/40">
             © 2026 Steve Beno H. All rights reserved.
           </p>
-          <div className="flex gap-6">
+          <div className="flex gap-7">
             <button
               onClick={(e) => {
                 e.preventDefault();
                 onOpenPrivacy?.();
               }}
-              className="text-xs text-caption hover:text-muted transition-colors cursor-pointer bg-transparent border-0 outline-none"
+              className="text-xs text-white/40 hover:text-primary transition-colors cursor-pointer bg-transparent border-0 outline-none"
             >
               Privacy
             </button>
@@ -147,7 +149,7 @@ export default function Footer({
                 e.preventDefault();
                 onOpenTerms?.();
               }}
-              className="text-xs text-caption hover:text-muted transition-colors cursor-pointer bg-transparent border-0 outline-none"
+              className="text-xs text-white/40 hover:text-primary transition-colors cursor-pointer bg-transparent border-0 outline-none"
             >
               Terms
             </button>

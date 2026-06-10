@@ -57,31 +57,31 @@ const capabilities = [
 
 export default function Capabilities() {
   return (
-    <section id="work" className="py-16 sm:py-24 border-t border-border/50">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+    <section id="work" className="bg-surface py-20 sm:py-28">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <AnimatedSection>
-          <div className="text-center mb-16">
-            <p className="text-sm text-primary font-medium uppercase tracking-widest mb-3">
+          <div className="text-center mb-14">
+            <p className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.3em] text-primary mb-4">
               Skills
             </p>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">
-              Always Learning, Always Building
+            <h2 className="font-display text-3xl sm:text-4xl lg:text-[2.75rem] font-bold tracking-tight">
+              Always Learning, Always Building.
             </h2>
+            <div className="gold-rule mx-auto mt-6" />
           </div>
         </AnimatedSection>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {capabilities.map((cap, index) => (
-            <AnimatedSection key={cap.title} delay={index * 0.08}>
-              <div className="relative group p-7 rounded-2xl bg-white/3 border border-white/12 hover:border-primary/40 backdrop-blur-xl transition-all duration-500 hover:-translate-y-1.5 flex flex-col items-center text-center h-full shadow-lg shadow-black/10 hover:shadow-primary/5 hover:bg-white/5 cursor-default">
-                {/* Frosted icon frame with ECE hover transformation */}
-                <div className="w-14 h-14 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary mb-4 transition-all group-hover:scale-110 group-hover:bg-primary group-hover:text-white duration-300 shadow-sm shadow-primary/5">
-                  <cap.icon size={22} />
-                </div>
-                <h3 className="text-base font-bold text-white mb-2 tracking-wide group-hover:text-primary transition-colors duration-300">
-                  {cap.title}
-                </h3>
-                <p className="text-xs text-muted leading-relaxed font-medium">
+            <AnimatedSection key={cap.title} delay={index * 0.06}>
+              <div className="bg-background card-lift p-8 text-center h-full shadow-press-sm rounded-lg">
+                <cap.icon
+                  size={30}
+                  strokeWidth={1.5}
+                  className="text-primary mx-auto mb-5"
+                />
+                <h3 className="text-base font-bold mb-2.5">{cap.title}</h3>
+                <p className="text-sm text-muted leading-relaxed">
                   {cap.description}
                 </p>
               </div>
@@ -92,4 +92,3 @@ export default function Capabilities() {
     </section>
   );
 }
-

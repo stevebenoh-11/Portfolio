@@ -150,7 +150,7 @@ export default function AdminDashboard() {
   // Render authenticating screen
   if (isLoggedIn === null) {
     return (
-      <main className="min-h-screen bg-background text-white flex flex-col items-center justify-center font-sans">
+      <main className="scheme-dark min-h-screen bg-background text-white flex flex-col items-center justify-center font-sans">
         <div className="w-10 h-10 border-2 border-primary border-t-transparent rounded-full animate-spin mb-4" />
         <p className="text-sm text-muted">Synchronizing secure database session...</p>
       </main>
@@ -160,7 +160,7 @@ export default function AdminDashboard() {
   // Render administrative login screen
   if (isLoggedIn === false) {
     return (
-      <main className="min-h-screen bg-background text-white font-sans flex items-center justify-center relative overflow-hidden selection:bg-primary/30">
+      <main className="scheme-dark min-h-screen bg-background text-white font-sans flex items-center justify-center relative overflow-hidden selection:bg-primary/30">
         {/* Decorative ambient glowing circles */}
         <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-primary/8 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-primary/5 rounded-full blur-3xl pointer-events-none" />
@@ -236,7 +236,7 @@ export default function AdminDashboard() {
   }
 
   return (
-    <main className="min-h-screen bg-background text-white font-sans selection:bg-primary/30">
+    <main className="scheme-dark min-h-screen bg-background text-white font-sans selection:bg-primary/30">
       <Navbar />
 
       <div className="pt-32 pb-20 mx-auto max-w-7xl px-6">
