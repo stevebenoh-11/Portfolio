@@ -43,7 +43,9 @@ export default function CTA() {
         }),
       });
 
-      if (response.ok) {
+      const result = await response.json().catch(() => null);
+
+      if (response.ok && result?.success === true) {
         setStatus("success");
         setFormData({
           name: "",
