@@ -61,7 +61,8 @@ export default function Navbar() {
           {/* Desktop CTAs */}
           <div className="hidden md:flex items-center gap-5">
             <a
-              href="#"
+              href="/Steve_Beno_H_Resume.pdf"
+              download="Steve_Beno_H_Resume.pdf"
               className="text-sm text-white/65 hover:text-white transition-colors duration-200"
             >
               Resume
@@ -106,7 +107,8 @@ export default function Navbar() {
             ))}
             <div className="flex flex-col gap-3 mt-8">
               <a
-                href="#"
+                href="/Steve_Beno_H_Resume.pdf"
+                download="Steve_Beno_H_Resume.pdf"
                 className="px-6 py-3.5 text-center text-sm font-semibold border border-white/30 text-white rounded-md hover:border-white transition-colors duration-200"
               >
                 Resume
