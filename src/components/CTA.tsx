@@ -14,7 +14,7 @@ export default function CTA() {
     phone: "",
     subject: "",
     message: "",
-    company: "", // honeypot — hidden from humans, bots that fill it get silently dropped
+    b_honeypot: "", // honeypot — hidden from humans, bots that fill it get silently dropped
   });
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
@@ -41,7 +41,7 @@ export default function CTA() {
           phone: formData.phone,
           subject: formData.subject,
           message: formData.message,
-          company: formData.company,
+          b_honeypot: formData.b_honeypot,
         }),
       });
 
@@ -55,7 +55,7 @@ export default function CTA() {
           phone: "",
           subject: "",
           message: "",
-          company: "",
+          b_honeypot: "",
         });
       } else {
         setStatus("error");
@@ -140,8 +140,8 @@ export default function CTA() {
                 {/* Honeypot field — visually hidden, real visitors never see or fill it */}
                 <input
                   type="text"
-                  name="company"
-                  value={formData.company}
+                  name="b_honeypot"
+                  value={formData.b_honeypot}
                   onChange={handleChange}
                   tabIndex={-1}
                   autoComplete="off"

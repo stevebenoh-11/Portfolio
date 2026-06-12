@@ -68,9 +68,9 @@ export async function POST(request: Request) {
       return NextResponse.json({ success: false, error: "Invalid request" }, { status: 400 });
     }
 
-    // Honeypot: the hidden "company" field is invisible to humans — if a bot
+    // Honeypot: the hidden "b_honeypot" field is invisible to humans — if a bot
     // filled it, pretend everything worked and drop the submission.
-    if (typeof body.company === "string" && body.company.trim() !== "") {
+    if (typeof body.b_honeypot === "string" && body.b_honeypot.trim() !== "") {
       return NextResponse.json({ success: true });
     }
 
@@ -127,7 +127,7 @@ export async function POST(request: Request) {
     }
 
     // 2. Forward to the n8n webhook — this decides success/failure
-    const webhookUrl = process.env.N8N_WEBHOOK_URL?.trim();
+    const webhookUrl = process.env.N8N_WEBHOOK_URL?.trim().replace(/^["']|["']$/g, "");
     if (!webhookUrl || !webhookUrl.startsWith("http")) {
       console.error(
         "[Contact] N8N_WEBHOOK_URL is not configured (missing, empty, or a placeholder). " +
