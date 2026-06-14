@@ -132,6 +132,17 @@ img, video, svg, canvas {
   animation: fade-in 0.35s ease both;
 }
 
+/* ── Studio light (hero key light) — slow, subtle breathing ─────── */
+@keyframes studio-glow {
+  0%, 100% { opacity: 0.85; transform: translate(-50%, 0) scale(1); }
+  50%      { opacity: 1;    transform: translate(-50%, 1.5%) scale(1.05); }
+}
+
+.animate-studio-glow {
+  animation: studio-glow 9s ease-in-out infinite;
+  will-change: opacity, transform;
+}
+
 /* ── Active press ───────────────────────────────────────────────── */
 button:active, a:active {
   transform: translateY(1px);
@@ -147,6 +158,10 @@ button:active, a:active {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  .animate-studio-glow {
+    animation: none !important;
   }
 }
 

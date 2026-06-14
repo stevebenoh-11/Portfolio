@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { GitHubIcon, LinkedInIcon, InstagramIcon, RedditIcon } from "./Footer";
+import StudioLight from "./StudioLight";
 
 const socials = [
   { icon: GitHubIcon, href: "https://github.com/stevebenoh-11", label: "GitHub" },
@@ -14,6 +15,8 @@ const socials = [
 export default function Hero() {
   return (
     <section id="home" className="relative bg-dark text-white overflow-hidden">
+      {/* Studio key light — soft, static gold lighting on the opening band */}
+      <StudioLight />
       {/* Ambient gold sheen, upper right — echoes the reference's lit skyline */}
       <div className="absolute top-0 right-0 w-[55%] h-full bg-gradient-to-bl from-primary/[0.07] via-transparent to-transparent pointer-events-none" />
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent pointer-events-none" />
