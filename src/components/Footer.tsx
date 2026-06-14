@@ -72,7 +72,7 @@ export default function Footer({
               ECE Student
             </p>
             <p className="text-sm text-white/55 leading-relaxed">
-              1st Year ECE student exploring the intersection of electronics, code,
+              ECE student exploring the intersection of electronics, code,
               game development, and engineering.
             </p>
           </div>

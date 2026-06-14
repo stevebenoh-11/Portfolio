@@ -64,7 +64,7 @@ export default function WhatIDo() {
                 Steve Beno H
               </p>
               <p className="text-xs uppercase tracking-[0.25em] text-caption mt-1">
-                1st Year ECE Student
+                ECE Student
               </p>
             </div>
           </AnimatedSection>

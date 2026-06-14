@@ -6,9 +6,9 @@ import AnimatedSection from "./AnimatedSection";
 
 const faqs = [
   {
-    question: "What year and branch are you studying?",
+    question: "What branch are you studying?",
     answer:
-      "I am a first-year student pursuing a degree in Electronics and Communication Engineering (ECE) at SNS College of Technology. I have a strong interest in embedded systems, game development, and modern software engineering.",
+      "I am pursuing a degree in Electronics and Communication Engineering (ECE) at SNS College of Technology. I have a strong interest in embedded systems, game development, and modern software engineering.",
   },
   {
     question: "Are you open to internships or collaborations?",

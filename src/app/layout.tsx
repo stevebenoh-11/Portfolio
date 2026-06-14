@@ -29,7 +29,7 @@ const plexMono = IBM_Plex_Mono({
 export const metadata: Metadata = {
   title: "Steve Beno H — ECE Student Portfolio",
   description:
-    "1st Year ECE student passionate about embedded systems, web development, and building projects that bridge hardware and software.",
+    "ECE student passionate about embedded systems, web development, and building projects that bridge hardware and software.",
   keywords: [
     "Steve Beno",
     "ECE Student",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Steve Beno H — ECE Student Portfolio",
     description:
-      "1st Year ECE student passionate about embedded systems, web development, and building projects that bridge hardware and software.",
+      "ECE student passionate about embedded systems, web development, and building projects that bridge hardware and software.",
     type: "website",
   },
 };

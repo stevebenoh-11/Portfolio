@@ -56,7 +56,7 @@ export default function Hero() {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="text-base sm:text-lg text-white/70 max-w-xl mb-10 leading-relaxed font-light"
             >
-              I&apos;m Steve Beno H — a 1st Year ECE student passionate about
+              I&apos;m Steve Beno H — an ECE student passionate about
               embedded systems, web development, and building projects that
               bridge hardware and software.
             </motion.p>
