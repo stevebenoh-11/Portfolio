@@ -6,6 +6,9 @@ import { clientIp, rateLimit } from "@/lib/rateLimit";
 
 const MAX_BODY_BYTES = 10_000;
 const WEBHOOK_TIMEOUT_MS = 10_000;
+// Cap the best-effort DB write: a paused free-tier Supabase project hangs on
+// connect, so we skip it after this budget rather than starve the webhook.
+const DB_SAVE_TIMEOUT_MS = 3_000;
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const FIELD_LIMITS = {
@@ -107,21 +110,31 @@ export async function POST(request: Request) {
 
     console.log(`[Contact] Received submission from ${name} <${email}>`);
 
-    // 1. Save to Supabase database (best-effort — powers the /admin dashboard)
+    // 1. Save to Supabase database (best-effort — powers the /admin dashboard).
+    //    Time-box it: a *paused* free-tier project hangs on connect instead of
+    //    failing fast, which can blow the serverless function's time budget and
+    //    break the whole request (the try/catch below catches errors, but not a
+    //    hang that outlives the function). Cap the wait so the n8n webhook — which
+    //    owns delivery + notifications — always runs, even when Supabase is asleep.
     try {
-      const newSubmission = await db.submission.create({
-        data: {
-          name,
-          email,
-          phone: phone || "Not Provided",
-          subject: subject || "General Inquiry",
-          message,
-        },
-      });
+      const newSubmission = await Promise.race([
+        db.submission.create({
+          data: {
+            name,
+            email,
+            phone: phone || "Not Provided",
+            subject: subject || "General Inquiry",
+            message,
+          },
+        }),
+        new Promise<never>((_, reject) =>
+          setTimeout(() => reject(new Error("DB save timed out")), DB_SAVE_TIMEOUT_MS)
+        ),
+      ]);
       console.log(`[Contact] Saved to database, id: ${newSubmission.id}`);
     } catch (dbError) {
       console.error(
-        "[Contact] DB save failed (continuing to webhook):",
+        "[Contact] DB save failed/timed out (continuing to webhook):",
         dbError instanceof Error ? dbError.message : dbError
       );
     }
